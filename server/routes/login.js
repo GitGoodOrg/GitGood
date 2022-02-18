@@ -7,7 +7,8 @@ const router = express.Router();
 
 
 //log in!
-router.post('/', userController.findUser, sessionController.startSession,
+router.post('/', 
+  // userController.findUser, sessionController.startSession,
   (req, res) => res.status(200).json({status: true})
 );
 
