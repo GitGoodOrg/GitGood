@@ -2,6 +2,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -10,16 +11,20 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist',
+    publicPath: '/',
     filename: 'bundle.js',
   },
   devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
   devServer: {
-    // host: 'localhost',
-    // port: 8080,
-    // // match the output path
-    // contentBase: path.resolve(__dirname, 'dist'),
+    host: 'localhost',
+    port: 8080,
+    // match the output path
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+      // match the output 'publicPath'
+      publicPath: '/',
+    },
     // enable HMR on the devServer
     hot: true,
     // match the output 'publicPath'
@@ -33,26 +38,26 @@ module.exports = {
         target: 'http://localhost:3000/',
         secure: false,
       },
-      '/': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
+      // '/': {
+      //   target: 'http://localhost:3000/',
+      //   secure: false,
+      // },
       '/assets/**': {
         target: 'http://localhost:3000/',
         secure: false,
       },
-      '/login': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
-      '/logout': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
-      '/signup': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
+      // '/login': {
+      //   target: 'http://localhost:3000/',
+      //   secure: false,
+      // },
+      // '/logout': {
+      //   target: 'http://localhost:3000/',
+      //   secure: false,
+      // },
+      // '/signup': {
+      //   target: 'http://localhost:3000/',
+      //   secure: false,
+      // },
     },
   },
   module: {
@@ -68,12 +73,23 @@ module.exports = {
         test: /\.s?[ac]ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      // Fonts and SVGs
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: 'asset/inline',
+      },
+      // Images
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './client/index.html',
     }),
+    new CleanWebpackPlugin(),
   ],
   resolve: {
     // Enable importing JS / JSX files without specifying their extension

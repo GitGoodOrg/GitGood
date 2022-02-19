@@ -16,16 +16,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+//Static Routes
+app.use(express.static(path.resolve(__dirname, '../client')));
+
 /**
  * define route handlers
  */
 // const sessionController = require('./controllers/sessionController');
 
-app.get('/',(req,res) => {
-  return res.sendFile(path.resolve('dist','index.html'));
-});
+// app.get('/',(req,res) => {
+//   return res.sendFile(path.resolve('client','index.html'));
+// });
 
-app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+// app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
 // app.get('/dist', (req, res) => {
 //   return res.sendFile(path.resolve('dist','bundle.js'));
 // });
@@ -41,7 +44,6 @@ app.get('/logout',
   }
 );
 
-app.use(express.static(path.resolve(__dirname, '../client')));
 
 // catch-all route handler for any requests to an unknown route
 // app.get('/*', (req, res) => res.redirect('/'));
