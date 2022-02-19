@@ -3,11 +3,11 @@ const db = require('../db/db');
 const topicController = {};
 
 topicController.getTopics = (req, res, next) => {
-  const sqlQuery = 'SELECT topic FROM topics';
+  const sqlQuery = 'SELECT * FROM subtopics WHERE topic_id=4';
 
   db.query(sqlQuery)
     .then(payload => {
-      res.locals.topics = payload.rows[0];
+      res.locals.topics = payload.rows;
       next();
     }).catch(err => {
       return next({
