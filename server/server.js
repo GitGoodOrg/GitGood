@@ -7,6 +7,8 @@ const signupRouter = require('./routes/signup');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+//New line from dev branch
+
 const PORT = 3000;
 
 //This is a line from ari/test2
