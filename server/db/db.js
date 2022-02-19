@@ -1,10 +1,9 @@
 const { Pool } = require('pg');
-
-const PG_URI = '[postgres url]';
+require('dotenv').config();
 
 // create a new pool here using the connection string above
 const pool = new Pool({
-  connectionString: PG_URI
+  connectionString: process.env.PG_URI
 });
 
 // Adding some notes about the database here will be helpful for future you or other developers.
@@ -20,3 +19,12 @@ module.exports = {
     return pool.query(text, params, callback);
   }
 };
+
+
+//Trying to figure out promise based query
+// module.exports = {
+//   query: pool
+//     .query('SELECT $1::text as name', ['brianc'])
+//     .then(res => console.log(res.rows[0].name)) // brianc
+//     .catch(err => console.error('Error executing query', err.stack))
+// }
