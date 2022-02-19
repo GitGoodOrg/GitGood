@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const db = require('../server/db/db');
+const { query } = require('express');
+import regeneratorRuntime from 'regenerator-runtime';
 
 /**
  * Like many testing frameworks, in Jest we use the "describe" function to
@@ -18,24 +20,41 @@ describe('db unit tests', () => {
    * completed. This way, the tests won't start until the "database" has been
    * reset to an empty Array!
    */
-  
-  // beforeAll((done) => {});
 
-  // afterAll((done) => {});
+   beforeAll(done => {
+    done()
+  })
+  
+  // afterAll(done => {
+  //   // Closing the DB connection allows Jest to exit successfully.
+  //   db.connection.close()
+  //   done()
+  // })
 
   describe('#sync', () => {
-    it('writes a valid marketList to the JSON file', () => {
+    it('db test is working', () => {
+      const sqlQuery = `SELECT * FROM Users`;
 
+      db.query(sqlQuery,[],(err, result) => {
+        // console.log(result)
+        return expect(typeof result).toBe('object');
+      }); 
+      
     });
 
     // TODO: Finish unit testing the sync function
 
-    it('overwrites previously existing markets', () => {
+    // it('overwrites previously existing markets', () => {
+    //   const sqlQuery = `SELECT * FROM Users`;
 
-    });
+    //   // console.log(process.env.PG_URI);
+    //   return db.query(sqlQuery)
+    //     .then((data) => expect(typeof data).toBe('object'))
+    //     .finally((done)=>done());
+    // });
 
-    it('returns an error when location and/or cards fields are not provided', () => {
-
+    it('db test', () => {
+      
     });
 
   });

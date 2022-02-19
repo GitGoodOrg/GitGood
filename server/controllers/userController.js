@@ -1,7 +1,7 @@
 const { query } = require('express');
 const db = require('../db/db');
 //bringing in the object we exported that has a .query method to query the pool
-require('dotenv').config();
+// require('dotenv').config();
 
 const bcrypt = require('bcryptjs');
 

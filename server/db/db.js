@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 
 // create a new pool here using the connection string above
 const pool = new Pool({
@@ -18,3 +19,11 @@ module.exports = {
     return pool.query(text, params, callback);
   }
 };
+
+//Trying to figure out promise based query
+// module.exports = {
+//   query: pool
+//     .query('SELECT $1::text as name', ['brianc'])
+//     .then(res => console.log(res.rows[0].name)) // brianc
+//     .catch(err => console.error('Error executing query', err.stack))
+// }
