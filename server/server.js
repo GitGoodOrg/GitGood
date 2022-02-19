@@ -2,8 +2,10 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const apiRouter = require('./routes/api');
-const loginRouter = require('./routes/login');
-const signupRouter = require('./routes/signup');
+// const bodyParser = require('body-parser');
+// const loginRouter = require('./routes/login');
+// const signupRouter = require('./routes/signup');
+const githubRouter = require('./routes/github');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
@@ -18,6 +20,7 @@ const PORT = 3000;
  */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //Static Routes
@@ -38,8 +41,9 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 // });
 
 app.use('/api', apiRouter);
-app.use('/login', loginRouter);
-app.use('/signup', signupRouter);
+app.use('/github', githubRouter);
+// app.use('/login', loginRouter);
+// app.use('/signup', signupRouter);
 app.get('/logout',
   (req, res) => {
     return res
