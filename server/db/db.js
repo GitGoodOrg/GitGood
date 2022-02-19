@@ -20,6 +20,7 @@ module.exports = {
   }
 };
 
+
 //Trying to figure out promise based query
 // module.exports = {
 //   query: pool
