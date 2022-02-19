@@ -37,7 +37,7 @@ describe('db unit tests', () => {
 
       db.query(sqlQuery,[],(err, result) => {
         // console.log(result)
-        return expect(typeof result).toBe('object');
+        return expect(typeof result).toEqual('object');
       }); 
       
     });

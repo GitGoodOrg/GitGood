@@ -51,20 +51,21 @@ const sessionController = {};
 //   }
 // };
 
-// //add session to the database
-// sessionController.startSession = (req, res, next) => {
-//   try {
-//     const {username} = req.body;
-//     var token = jwt.sign({ username: username, loggedIn: true }, process.env.SECRET_KEY);
-//     res.cookie('access_token', token, {httpOnly: true});
-//     return next();
-//   } catch(err) {
-//     return next({
-//       log: `Cannot start session Err: ${err.message}`,
-//       status: 400,
-//       message: { err: 'An error occurred' },
-//     });
-//   }
-// };
+// add session JWT to cookies
+sessionController.startSession = (req, res, next) => {
+  try {
+    const username = res.locals.profile.login;
+    const email = res.locals.profile.email;
+    var token = jwt.sign({ username: username }, process.env.SECRET_KEY);
+    res.cookie('ssid', token, {httpOnly: true});
+    return next();
+  } catch(err) {
+    return next({
+      log: `Cannot start session. Error in sessionController.startSession Err: ${err.message}`,
+      status: 400,
+      message: { err: 'An error occurred' },
+    });
+  }
+};
 
 module.exports = sessionController;
