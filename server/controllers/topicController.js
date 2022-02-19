@@ -17,8 +17,8 @@ topicController.getTopics = (req, res, next) => {
     });
 };
 
-topicController.postTopics = (req, res, next) => {
-  const sqlQuery = 'INSERT INTO ';
+topicController.postTopic = (req, res, next) => {
+  const sqlQuery = 'INSERT INTO topics (username, topic) VALUES (';
 
   db.query(sqlQuery)
     .then(payload => {

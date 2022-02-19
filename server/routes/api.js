@@ -11,5 +11,9 @@ router.get('/',
   (req, res) => res.status(200).json(res.locals.topics)
 );
 
+router.post('/',
+  topicController.postTopic,
+  (req, res) => res.status(200).json(res.locals.topics)
+);
 
 module.exports = router;
