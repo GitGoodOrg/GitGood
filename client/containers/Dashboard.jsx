@@ -4,8 +4,8 @@ import CardContainer from './CardContainer.jsx';
 
 function Dashboard() {
     
-  const [ topics, setTopics ] = useState(['Javascript']);
-  const [ cards, setCards ] = useState(['React']);
+  const [ topics, setTopics ] = useState({});
+  const [ cards, setCards ] = useState([]);
   const [ emojis, setEmojis ] = useState([]);
   const [ bodies, setBodies ] = useState([]);
   // const [ topicId]
@@ -14,23 +14,46 @@ function Dashboard() {
   const [ cardText, setCardText ] = useState('');
   const [ emojiText, setEmojiText ] = useState(''); //might be dropdown later
   const [ bodyText, setBodyText ] = useState('');
-  
+
+  useEffect(() => {
+    getTopics();
+  },[]);
+
+  const getTopics = () => {
+    const url = 'http://localhost:3000/api/topic';
+    fetch(url)
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        setTopics(data);
+      });
+  };
+
+  const getCards = (topic_id) => {
+    const url = `http://localhost:3000/api/subtopic/${topic_id}`;
+    fetch(url)
+      .then(data => data.json())
+      .then(data => {
+        setCards(data);
+      });
+  };
+
   const topicSubmit = (e) => {
     const topicTitle = e.target[0].value;
     e.preventDefault();
     setTopics([...topics, topicText]);
     setTopicText('');
-    fetch('http://localhost:3000/api/topic', {
-      method: 'Post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: {
-        topic_name: topicTitle,
-      }
-    })
-      .then((data) => data.json())
-      .then((data) => data[_id])
+    // fetch('http://localhost:3000/api/topic', {
+    //   method: 'Post',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: {
+    //     topic_name: topicTitle,
+    //   }
+    // })
+    //   .then((data) => data.json())
+    //   .then((data) => data[_id])
       // .then((data) => JSON.parse(data))
   };
 
@@ -95,6 +118,7 @@ function Dashboard() {
         <h1>GITGOOD</h1>
       </header>
       <Nav
+        getCards={getCards}
         topics={topics}
         topicSubmit={topicSubmit}
         topicTextEntry={topicTextEntry}

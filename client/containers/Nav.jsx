@@ -4,9 +4,9 @@ import Topic from '../components/Topic.jsx'
 function Nav(props) {
   const topicsFeed = [];
   // iterate through props.topics
-  for (let i = 0; i < props.topics.length; i++) {
-    topicsFeed.push(<Topic key={i} topics={props.topics[i]} />);
-  }
+  // for (const topic_id in props.topics) {
+  //   topicsFeed.push(<Topic key={topic_id} topics={props.topics[topic_id]} getCards={props.getCards} topic_id={topic_id} />);
+  // }
 
   return(
     <div>

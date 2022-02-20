@@ -10,7 +10,12 @@ topicController.getTopics = (req, res, next) => {
 
   db.query(sqlQuery,[username])
     .then(payload => {
-      res.locals.topics = payload.rows;
+      const result = {};
+      payload.rows.forEach((curr) => {
+        result[curr._id] = curr.topic_name;
+      });
+      res.locals.topics = result;
+      console.log(result);
       next();
     }).catch(err => {
       return next({
