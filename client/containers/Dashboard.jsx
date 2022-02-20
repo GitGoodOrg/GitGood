@@ -6,20 +6,70 @@ function Dashboard() {
     
   const [ topics, setTopics ] = useState(['Javascript']);
   const [ cards, setCards ] = useState(['React']);
+  const [ emojis, setEmojis ] = useState([]);
+  const [ bodies, setBodies ] = useState([]);
+  // const [ topicId]
+
   const [ topicText, setTopicText ] = useState('');
   const [ cardText, setCardText ] = useState('');
+  const [ emojiText, setEmojiText ] = useState(''); //might be dropdown later
+  const [ bodyText, setBodyText ] = useState('');
   
   const topicSubmit = (e) => {
-    // prevent default just for submits
+    const topicTitle = e.target[0].value;
     e.preventDefault();
     setTopics([...topics, topicText]);
     setTopicText('');
+    fetch('http://localhost:3000/api/topic', {
+      method: 'Post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        topic_name: topicTitle,
+      }
+    })
+      .then((data) => data.json())
+      .then((data) => data[_id])
+      // .then((data) => JSON.parse(data))
   };
 
+  // fx cardSubmit will submit the card, the body, the emoji
   const cardSubmit = (e) => {
     e.preventDefault();
+    const emojiValue = e.target[0].value;
+    const cardTitleValue = e.target[1].value;
+    const bodyValue = e.target[2].value;
+    console.log(e.target[0].value);
     setCards([...cards, cardText]);
     setCardText('');
+    // bodySubmit();
+    // emojiSubmit();
+    // fetch('http://localhost:3000/subtopic', {
+    //   method: 'Post',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: {
+          // Emoji: emojiValue,
+          // SubTopic: cardTitleValue,
+          // body: bodyValue  
+    //   }
+    // })
+
+  };
+
+  // cardSubmit inner functions
+  const emojiSubmit = (e) => {
+    e.preventDefault();
+    setEmojis([...emojis, emojiText]);
+    setEmojiText('');
+  }; 
+
+  const bodySubmit = (e) => {
+    e.preventDefault();
+    setBodies([...bodies, bodyText]);
+    setBodyText('');
   };
 
   const topicTextEntry = (e) => {
@@ -27,18 +77,41 @@ function Dashboard() {
     setTopicText(e.target.value);
   };
 
+  const bodyTextEntry = (e) => {
+    setBodyText(e.target.value);
+  };
+
+  const emojiTextEntry = (e) => {
+    setEmojiText(e.target.value);
+  };
+
   const cardTextEntry = (e) => {
-    console.log(e);
     setCardText(e.target.value);
-  }
+  };
 
   return (
     <div>
       <header>
         <h1>GITGOOD</h1>
       </header>
-      <Nav topics={topics} topicSubmit={topicSubmit} topicTextEntry={topicTextEntry} topicText={topicText} />
-      <CardContainer cards={cards} cardSubmit={cardSubmit} cardTextEntry={cardTextEntry} cardText={cardText} />        
+      <Nav
+        topics={topics}
+        topicSubmit={topicSubmit}
+        topicTextEntry={topicTextEntry}
+        topicText={topicText} 
+      />
+      <CardContainer 
+        bodyText={bodyText} 
+        emojis={emojis} 
+        emojiText={emojiText} 
+        bodies={bodies} 
+        cards={cards} 
+        cardSubmit={cardSubmit} 
+        cardTextEntry={cardTextEntry} 
+        cardText={cardText}
+        bodyTextEntry={bodyTextEntry}
+        emojiTextEntry={emojiTextEntry}
+      />        
     </div>
   );
 }

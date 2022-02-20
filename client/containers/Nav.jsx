@@ -10,14 +10,14 @@ function Nav(props) {
 
   return(
     <div>
-      <h2>Nav</h2>
+      <h2>Topics</h2>
       <form action='' onSubmit={(e) => props.topicSubmit(e)}>
-        <input type='text' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
+        <input type='text' placeholder='Add Topic...' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
         <input type='submit' />
       </form> 
       {topicsFeed}
     </div>
-  )
+  );
 }
 
 export default Nav;
