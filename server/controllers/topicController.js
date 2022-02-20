@@ -3,7 +3,10 @@ const db = require('../db/db');
 const topicController = {};
 
 topicController.getTopics = (req, res, next) => {
-  const sqlQuery = 'SELECT * FROM subtopics WHERE topic_id=4';
+
+  const username = res.locals.username;
+
+  const sqlQuery = `SELECT * FROM topics WHERE username=${username}`;
 
   db.query(sqlQuery)
     .then(payload => {
@@ -18,7 +21,10 @@ topicController.getTopics = (req, res, next) => {
 };
 
 topicController.postTopic = (req, res, next) => {
-  const sqlQuery = 'INSERT INTO topics (username, topic) VALUES (';
+  const username = res.locals.username;
+  const {topic_name} = req.body;
+
+  const sqlQuery = `INSERT INTO topics (username, topic_name) VALUES ('${username}', '${topic_name}') RETURNING _id`;
 
   db.query(sqlQuery)
     .then(payload => {
@@ -27,22 +33,24 @@ topicController.postTopic = (req, res, next) => {
     }).catch(err => {
       return next({
         log: `topicController.getTopics: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
-        message: { err: 'Error occurred in topicController.getTopics. Check server log for more details.'},
+        message: { err: 'Error occurred in topicController.postTopics. Check server log for more details.'},
       });
     });
 };
 
-topicController.updateTopics = (req, res, next) => {
-  const sqlQuery = 'UPDATE tablename SET column=value WHERE _id=';
+topicController.deleteTopic = (req, res, next) => {
+  const {_id} = req.body;
+
+  const sqlQuery = `DELETE FROM topics WHERE _id=${_id} RETURNING *`;
 
   db.query(sqlQuery)
     .then(payload => {
-      res.locals.topics = payload.rows[0];
+      res.locals.topics = payload.rows;
       next();
     }).catch(err => {
       return next({
         log: `topicController.getTopics: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
-        message: { err: 'Error occurred in topicController.getTopics. Check server log for more details.'},
+        message: { err: 'Error occurred in topicController.deleteTopics. Check server log for more details.'},
       });
     });
 };
