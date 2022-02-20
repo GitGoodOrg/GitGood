@@ -28,28 +28,28 @@ topicController.postTopic = (req, res, next) => {
 
   db.query(sqlQuery)
     .then(payload => {
-      res.locals.topics = payload.rows[0];
+      res.locals.topic = payload.rows[0];
       next();
     }).catch(err => {
       return next({
-        log: `topicController.getTopics: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
+        log: `topicController.postTopics: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
         message: { err: 'Error occurred in topicController.postTopics. Check server log for more details.'},
       });
     });
 };
 
 topicController.deleteTopic = (req, res, next) => {
-  const {_id} = req.body;
+  const {id} = req.params;
 
-  const sqlQuery = `DELETE FROM topics WHERE _id=${_id} RETURNING *`;
+  const sqlQuery = `DELETE FROM topics WHERE _id=${id} RETURNING *`;
 
   db.query(sqlQuery)
     .then(payload => {
-      res.locals.topics = payload.rows;
+      res.locals.topic = payload.rows[0];
       next();
     }).catch(err => {
       return next({
-        log: `topicController.getTopics: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
+        log: `topicController.deleteTopics: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
         message: { err: 'Error occurred in topicController.deleteTopics. Check server log for more details.'},
       });
     });
