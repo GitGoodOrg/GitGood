@@ -24,7 +24,8 @@ router.get('/callback',
   sessionController.startSession,
   userController.addUser,
   (req, res) => {
-    res.send({status: 'The user is logged in!'});
+    // FOR DEV SERVER ONLY
+    res.redirect('http://localhost:8080/');
   });
 
 
