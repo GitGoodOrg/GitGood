@@ -4,11 +4,11 @@ const subtopicController = {};
 
 subtopicController.getSubtopics = (req, res, next) => {
 
-  const username = res.locals.username;
+  const {topic_id} = req.params;
 
-  const sqlQuery = `SELECT * FROM topics WHERE username=${username}`;
+  const sqlQuery = 'SELECT * FROM subtopics WHERE topic_id=$1';
 
-  db.query(sqlQuery)
+  db.query(sqlQuery, [topic_id])
     .then(payload => {
       res.locals.subtopics = payload.rows;
       next();
@@ -21,14 +21,13 @@ subtopicController.getSubtopics = (req, res, next) => {
 };
 
 subtopicController.postSubtopic = (req, res, next) => {
-  const username = res.locals.username;
-  const {topic_name} = req.body;
+  const {topic_id} = req.params;
 
-  const sqlQuery = `INSERT INTO topics (username, topic_name) VALUES ('${username}', '${topic_name}') RETURNING _id`;
-
-  db.query(sqlQuery)
+  const sqlQuery = 'INSERT INTO subtopics (topic_id) VALUES ($1) RETURNING *';
+  console.log('topic_id',topic_id);
+  db.query(sqlQuery, [topic_id])
     .then(payload => {
-      res.locals.subtopic = payload.rows[0];
+      res.locals.subtopic = payload.rows;
       next();
     }).catch(err => {
       return next({
@@ -41,9 +40,9 @@ subtopicController.postSubtopic = (req, res, next) => {
 subtopicController.deleteSubtopic = (req, res, next) => {
   const {id} = req.params;
 
-  const sqlQuery = `DELETE FROM topics WHERE _id=${id} RETURNING *`;
+  const sqlQuery = 'DELETE FROM subtopics WHERE _id=$1 RETURNING *';
 
-  db.query(sqlQuery)
+  db.query(sqlQuery, [id])
     .then(payload => {
       res.locals.subtopic = payload.rows[0];
       next();

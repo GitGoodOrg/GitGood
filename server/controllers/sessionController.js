@@ -8,7 +8,7 @@ const sessionController = {};
 sessionController.isLoggedIn = (req, res, next) => {
   try {
     if(req.cookies.ssid) {
-      var decoded = jwt.verify(req.cookies.ssid, process.env.SECRET_KEY);
+      const decoded = jwt.verify(req.cookies.ssid, process.env.SECRET_KEY);
       if(decoded.username !== undefined) {
         res.locals.username = decoded.username;
         return next();
@@ -38,7 +38,7 @@ sessionController.startSession = (req, res, next) => {
   try {
     const username = res.locals.profile.login;
     const email = res.locals.profile.email;
-    var token = jwt.sign({ username: username }, process.env.SECRET_KEY);
+    const token = jwt.sign({ username: username }, process.env.SECRET_KEY);
     res.cookie('ssid', token, {httpOnly: true});
     return next();
   } catch(err) {

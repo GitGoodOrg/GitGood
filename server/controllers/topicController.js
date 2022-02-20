@@ -6,9 +6,9 @@ topicController.getTopics = (req, res, next) => {
 
   const username = res.locals.username;
 
-  const sqlQuery = `SELECT * FROM topics WHERE username=${username}`;
+  const sqlQuery = 'SELECT * FROM topics WHERE username=$1';
 
-  db.query(sqlQuery)
+  db.query(sqlQuery,[username])
     .then(payload => {
       res.locals.topics = payload.rows;
       next();
@@ -23,10 +23,11 @@ topicController.getTopics = (req, res, next) => {
 topicController.postTopic = (req, res, next) => {
   const username = res.locals.username;
   const {topic_name} = req.body;
+  console.log(req.body);
 
-  const sqlQuery = `INSERT INTO topics (username, topic_name) VALUES ('${username}', '${topic_name}') RETURNING _id`;
+  const sqlQuery = 'INSERT INTO topics (username, topic_name) VALUES ($1, $2) RETURNING *';
 
-  db.query(sqlQuery)
+  db.query(sqlQuery,[username, topic_name])
     .then(payload => {
       res.locals.topic = payload.rows[0];
       next();
@@ -41,9 +42,9 @@ topicController.postTopic = (req, res, next) => {
 topicController.deleteTopic = (req, res, next) => {
   const {id} = req.params;
 
-  const sqlQuery = `DELETE FROM topics WHERE _id=${id} RETURNING *`;
+  const sqlQuery = 'DELETE FROM topics WHERE _id=$1 RETURNING *';
 
-  db.query(sqlQuery)
+  db.query(sqlQuery,[id])
     .then(payload => {
       res.locals.topic = payload.rows[0];
       next();
