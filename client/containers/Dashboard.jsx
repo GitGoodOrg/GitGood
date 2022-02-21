@@ -3,11 +3,14 @@ import Nav from './Nav.jsx';
 import CardContainer from './CardContainer.jsx';
 
 function Dashboard() {
-    
+  //All the topics in key value pairs {_id: name}
   const [ topics, setTopics ] = useState({});
+  //All the cards for a topic in an array of objects [{card}, {card}]
   const [ cards, setCards ] = useState([]);
   const [ emojis, setEmojis ] = useState([]);
   const [ bodies, setBodies ] = useState([]);
+  //the current topic id that the user is looking at
+  const [ currentTopicId, setCurrentTopicId ] = useState();
 
   const [ topicText, setTopicText ] = useState('');
   const [ cardText, setCardText ] = useState('');
@@ -37,6 +40,7 @@ function Dashboard() {
       .then(data => {
         console.log(data);
         setCards(data);
+        setCurrentTopicId(topic_id);
       });
   };
 
@@ -77,22 +81,27 @@ function Dashboard() {
       });
   };
 
-  const addCard = (topic_id) => {
+  const addCard = () => {
     // const topicTitle = e.target[0].value;
-    topic_id.preventDefault();
-    fetch(`http://localhost:3000/api/subtopic/${topic_id}`, {
+    fetch('http://localhost:3000/api/subtopic/', {
       method: 'Post',
       headers: {
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify({
+        topic_id: currentTopicId,
+        title: cardText, 
+        emoji: emojiText,
+        text: bodyText,
+      })
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
-        const cardsCopy = {...cards};
-        cardsCopy[data._id] = data.title;
-        setCards(cardsCopy);
-        setTopicText('');
+        // console.log(data);
+        setCards([...cards, data]);
+        setEmojiText('');
+        setCardText('');
+        setBodyText('');
       });
   };
   
@@ -104,30 +113,46 @@ function Dashboard() {
         'Content-Type': 'application/json'
       }
     })
+      .then(data => data.json())
       .then(data => {
         console.log(data);
-        const cardsCopy = {...cards};
-        delete cardsCopy[card_id];
+        const cardsCopy = [...cards];
+        let index;
+        cardsCopy.forEach((cur, i) =>{
+          if (cur._id === card_id) index = i;
+        });
+        cardsCopy.splice(index, 1);
         setCards(cardsCopy);
       });
   };
 
   const updateCard = (card_id) => {
-    fetch(`http://localhost:3000/api/subtopic/${card_id}`, {
+    fetch('http://localhost:3000/api/subtopic/', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        card_name: cardText,
+        _id: card_id,
+        title: cardText, 
+        emoji: emojiText,
+        text: bodyText,
       })
     })
       .then((data) => data.json())
       .then(data => {
         console.log(data);
-        const cardsCopy = {...cards};
-        setCards()
-      })
+        const cardsCopy = [...cards];
+        let index;
+        cardsCopy.forEach((cur, i) =>{
+          if (cur._id === card_id) index = i;
+        });
+        cardsCopy[index] = data;
+        setCards(cardsCopy);
+        setEmojiText('');
+        setCardText('');
+        setBodyText('');
+      });
   };
 
   // fx cardSubmit will submit the card, the body, the emoji
@@ -198,6 +223,7 @@ function Dashboard() {
         topicText={topicText} 
         deleteTopic={deleteTopic}
       />
+      {currentTopicId &&
       <CardContainer 
         bodyText={bodyText} 
         emojis={emojis} 
@@ -211,7 +237,12 @@ function Dashboard() {
         emojiTextEntry={emojiTextEntry}
         addCard={addCard}
         deleteCard={deleteCard}
-      />        
+        setBodyText={setBodyText}
+        setEmojiText={setEmojiText}
+        setCardText={setCardText}
+        updateCard={updateCard}
+      /> 
+      }       
     </div>
   );
 }

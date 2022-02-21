@@ -4,15 +4,20 @@ import ExpandedCard from '../components/ExpandedCard.jsx';
 
 function CardContainer(props) {
   const [ buttonPopup, setButtonPopup ] = useState(false);
+  const [ currentCardId, setCurrentCardId ] = useState(undefined);
+  
+  
   const cardsFeed = [];
   for (let i = 0; i < props.cards.length; i++) {
-    cardsFeed.push(<Card key={i} cards={props.cards[i]} />);
+    cardsFeed.push(<Card key={i} cards={props.cards[i]} deleteCard={props.deleteCard} trigger={buttonPopup} setTrigger={setButtonPopup} setBodyText={props.setBodyText} setEmojiText={props.setEmojiText} setCardText={props.setCardText} setCurrentCardId={setCurrentCardId}/>);
   }
 
   return(
     <div className="CardContainer">
-      <h2>Resources</h2>
-      <button onClick={() => setButtonPopup(true)}>Add Subtopic</button>
+      <h2>Subtopics</h2>
+      <button onClick={() => {
+        setCurrentCardId(undefined);
+        setButtonPopup(true)}}>Add Subtopic</button>
       {cardsFeed}
       <ExpandedCard 
         trigger={buttonPopup} 
@@ -29,6 +34,8 @@ function CardContainer(props) {
         emojiTextEntry={props.emojiTextEntry}
         addCard={props.addCard}
         deleteCard={props.deleteCard}
+        currentCardId={currentCardId}
+        updateCard={props.updateCard}
       />
     </div>
   );
