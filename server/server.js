@@ -1,7 +1,10 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const apiRouter = require('./routes/api');
+
+app.use(cors());
 // const bodyParser = require('body-parser');
 // const loginRouter = require('./routes/login');
 // const signupRouter = require('./routes/signup');
@@ -24,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //Static Routes
-app.use(express.static(path.resolve(__dirname, '../client')));
+// app.use(express.static(path.resolve(__dirname, '../client')));
 
 /**
  * define route handlers
@@ -32,11 +35,14 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 // const sessionController = require('./controllers/sessionController');
 
 // app.get('/',(req,res) => {
-//   return res.sendFile(path.resolve('client','index.html'));
+//   return res.sendFile(path.resolve('dist','index.html'));
 // });
 
-// app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+if(process.env.NODE_ENV !== 'development') {
+  app.use('/', express.static(path.resolve(__dirname, '../dist')));
+}
 // app.get('/dist', (req, res) => {
+//   console.log('dist')
 //   return res.sendFile(path.resolve('dist','bundle.js'));
 // });
 
