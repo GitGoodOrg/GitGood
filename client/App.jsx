@@ -1,6 +1,6 @@
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import GithubTest from './GithubTest';
+import GithubTest from './components/GithubTest';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Dashboard from './containers/Dashboard.jsx';
 
