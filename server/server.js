@@ -1,7 +1,10 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const apiRouter = require('./routes/api');
+
+app.use(cors());
 // const bodyParser = require('body-parser');
 // const loginRouter = require('./routes/login');
 // const signupRouter = require('./routes/signup');

@@ -8,7 +8,6 @@ function Dashboard() {
   const [ cards, setCards ] = useState([]);
   const [ emojis, setEmojis ] = useState([]);
   const [ bodies, setBodies ] = useState([]);
-  // const [ topicId]
 
   const [ topicText, setTopicText ] = useState('');
   const [ cardText, setCardText ] = useState('');
@@ -22,11 +21,13 @@ function Dashboard() {
   const getTopics = () => {
     const url = 'http://localhost:3000/api/topic';
     fetch(url)
-      .then((data) => data.json())
       .then((data) => {
-        console.log(data);
+        return data.json();
+      })
+      .then((data) => {
         setTopics(data);
-      });
+      })
+      .catch((err) => console.log('err', err));
   };
 
   const getCards = (topic_id) => {
@@ -34,27 +35,99 @@ function Dashboard() {
     fetch(url)
       .then(data => data.json())
       .then(data => {
+        console.log(data);
         setCards(data);
       });
   };
 
   const topicSubmit = (e) => {
-    const topicTitle = e.target[0].value;
+    // const topicTitle = e.target[0].value;
     e.preventDefault();
-    setTopics([...topics, topicText]);
-    setTopicText('');
-    // fetch('http://localhost:3000/api/topic', {
-    //   method: 'Post',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: {
-    //     topic_name: topicTitle,
-    //   }
-    // })
-    //   .then((data) => data.json())
-    //   .then((data) => data[_id])
-      // .then((data) => JSON.parse(data))
+    fetch('http://localhost:3000/api/topic', {
+      method: 'Post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        topic_name: topicText,
+      })
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        const topicsCopy = {...topics};
+        topicsCopy[data._id] = data.topic_name;
+        setTopics(topicsCopy);
+        setTopicText('');
+      });
+  };
+
+  const deleteTopic = (topic_id) => {
+    fetch(`http://localhost:3000/api/topic/${topic_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(data => {
+        console.log(data);
+        const topicsCopy = {...topics};
+        delete topicsCopy[topic_id];
+        setTopics(topicsCopy);
+      });
+  };
+
+  const addCard = (topic_id) => {
+    // const topicTitle = e.target[0].value;
+    topic_id.preventDefault();
+    fetch(`http://localhost:3000/api/subtopic/${topic_id}`, {
+      method: 'Post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        const cardsCopy = {...cards};
+        cardsCopy[data._id] = data.title;
+        setCards(cardsCopy);
+        setTopicText('');
+      });
+  };
+  
+  
+  const deleteCard = (card_id) => {
+    fetch(`http://localhost:3000/api/subtopic/${card_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(data => {
+        console.log(data);
+        const cardsCopy = {...cards};
+        delete cardsCopy[card_id];
+        setCards(cardsCopy);
+      });
+  };
+
+  const updateCard = (card_id) => {
+    fetch(`http://localhost:3000/api/subtopic/${card_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        card_name: cardText,
+      })
+    })
+      .then((data) => data.json())
+      .then(data => {
+        console.log(data);
+        const cardsCopy = {...cards};
+        setCards()
+      })
   };
 
   // fx cardSubmit will submit the card, the body, the emoji
@@ -74,9 +147,9 @@ function Dashboard() {
     //     'Content-Type': 'application/json'
     //   },
     //   body: {
-          // Emoji: emojiValue,
-          // SubTopic: cardTitleValue,
-          // body: bodyValue  
+    // Emoji: emojiValue,
+    // SubTopic: cardTitleValue,
+    // body: bodyValue  
     //   }
     // })
 
@@ -123,6 +196,7 @@ function Dashboard() {
         topicSubmit={topicSubmit}
         topicTextEntry={topicTextEntry}
         topicText={topicText} 
+        deleteTopic={deleteTopic}
       />
       <CardContainer 
         bodyText={bodyText} 
@@ -135,6 +209,8 @@ function Dashboard() {
         cardText={cardText}
         bodyTextEntry={bodyTextEntry}
         emojiTextEntry={emojiTextEntry}
+        addCard={addCard}
+        deleteCard={deleteCard}
       />        
     </div>
   );

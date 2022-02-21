@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Topic from '../components/Topic.jsx'
+import Topic from '../components/Topic.jsx';
 
 function Nav(props) {
   const topicsFeed = [];
   // iterate through props.topics
-  // for (const topic_id in props.topics) {
-  //   topicsFeed.push(<Topic key={topic_id} topics={props.topics[topic_id]} getCards={props.getCards} topic_id={topic_id} />);
-  // }
+  for (const topic_id in props.topics) {
+    topicsFeed.push(<Topic key={topic_id} topics={props.topics[topic_id]} getCards={props.getCards} topic_id={topic_id} deleteTopic={props.deleteTopic}/>);
+  }
 
   return(
     <div>

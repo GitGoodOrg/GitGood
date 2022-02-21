@@ -27,6 +27,8 @@ function CardContainer(props) {
         cardText={props.cardText}
         bodyTextEntry={props.bodyTextEntry}
         emojiTextEntry={props.emojiTextEntry}
+        addCard={props.addCard}
+        deleteCard={props.deleteCard}
       />
     </div>
   );

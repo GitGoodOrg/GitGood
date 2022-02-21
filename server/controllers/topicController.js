@@ -15,7 +15,6 @@ topicController.getTopics = (req, res, next) => {
         result[curr._id] = curr.topic_name;
       });
       res.locals.topics = result;
-      console.log(result);
       next();
     }).catch(err => {
       return next({

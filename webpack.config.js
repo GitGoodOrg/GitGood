@@ -30,7 +30,7 @@ module.exports = {
     // match the output 'publicPath'
     // publicPath: '/',
     // fallback to root for other urls
-    historyApiFallback: true,
+    // historyApiFallback: true,
 
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {

@@ -21,8 +21,11 @@ sessionController.isLoggedIn = (req, res, next) => {
       }
       //JWT does not exist
     } else {
-      return res
-        .json('not logged in');
+      //HARD CODED USERNAME TO FIX CORS TEMP
+      // return res
+      //   .json('not logged in');
+      res.locals.username = 'nlakshman';
+      return next();
     }
   } catch(err) {
     return next({
@@ -39,7 +42,7 @@ sessionController.startSession = (req, res, next) => {
     const username = res.locals.profile.login;
     const email = res.locals.profile.email;
     const token = jwt.sign({ username: username }, process.env.SECRET_KEY);
-    res.cookie('ssid', token, {httpOnly: true});
+    res.cookie('ssid', token); //{httpOnly: true}
     return next();
   } catch(err) {
     return next({
