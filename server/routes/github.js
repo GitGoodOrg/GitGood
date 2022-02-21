@@ -9,7 +9,7 @@ const router = express.Router();
 //test comment dev branch
 //sign up!
 router.get('/auth', (req, res) => {
-
+  console.log('got auth request');
   const url = 'https://github.com/login/oauth/authorize?' 
     + 'scope=user,repo&'
     + 'redirect_uri=http://localhost:3000/github/callback&'
