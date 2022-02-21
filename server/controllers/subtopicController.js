@@ -7,7 +7,7 @@ subtopicController.getSubtopics = (req, res, next) => {
   const {topic_id} = req.params;
 
   const sqlQuery = 'SELECT * FROM subtopics WHERE topic_id=$1';
-
+  
   db.query(sqlQuery, [topic_id])
     .then(payload => {
       res.locals.subtopics = payload.rows;
@@ -21,13 +21,19 @@ subtopicController.getSubtopics = (req, res, next) => {
 };
 
 subtopicController.postSubtopic = (req, res, next) => {
-  const {topic_id} = req.params;
-
-  const sqlQuery = 'INSERT INTO subtopics (topic_id) VALUES ($1) RETURNING *';
-  console.log('topic_id',topic_id);
-  db.query(sqlQuery, [topic_id])
+  // const {topic_id} = req.params;
+  let {topic_id, emoji, title, text, progress} = req.body;
+  emoji = emoji || '';
+  title = title || 'Title Holder'; //for dev only
+  text = text || '';
+  progress = progress || 0;
+  
+  const sqlQuery = `INSERT INTO subtopics (topic_id, emoji, title, text, progress) 
+    VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    // console.log('topic_id',topic_id, emoji, title, text, progress);
+  db.query(sqlQuery, [topic_id, emoji, title, text, progress])
     .then(payload => {
-      res.locals.subtopic = payload.rows;
+      res.locals.subtopic = payload.rows[0];
       next();
     }).catch(err => {
       return next({
@@ -55,12 +61,16 @@ subtopicController.deleteSubtopic = (req, res, next) => {
 };
 
 subtopicController.putSubtopic = (req, res, next) => {
-  const {id} = req.params;
-  const {emoji, title, text, progress} = req.body;
 
-  const sqlQuery = `UPDATE subtopics SET emoji='${emoji}', title='${title}', text='${text}', progress=${progress} WHERE _id=${id} RETURNING *`;
+  let {emoji, title, text, progress, _id} = req.body;
+  emoji = emoji || '';
+  title = title || 'Title Holder'; //for dev only
+  text = text || '';
+  progress = progress || 0;
+  
+  const sqlQuery = 'UPDATE subtopics SET emoji=$1, title=$2, text=$3, progress=$4 WHERE _id=$5 RETURNING *';
 
-  db.query(sqlQuery)
+  db.query(sqlQuery, [emoji, title, text, progress, _id])
     .then(payload => {
       res.locals.subtopic = payload.rows[0];
       next();

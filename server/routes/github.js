@@ -25,7 +25,11 @@ router.get('/callback',
   userController.addUser,
   (req, res) => {
     // FOR DEV SERVER ONLY
-    res.redirect('http://localhost:8080/');
+    if(process.env.NODE_ENV === 'development') {
+      res.redirect('http://localhost:8080/');
+    } else {
+      res.redirect('/');
+    }
   });
 
 

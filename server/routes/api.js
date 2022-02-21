@@ -32,7 +32,7 @@ router.get('/subtopic/:topic_id',
   (req, res) => res.status(200).json(res.locals.subtopics)
 );
 
-router.post('/subtopic/:topic_id',
+router.post('/subtopic/',
   sessionController.isLoggedIn,
   subtopicController.postSubtopic,
   (req, res) => res.status(200).json(res.locals.subtopic)
@@ -44,7 +44,7 @@ router.delete('/subtopic/:id',
   (req, res) => res.status(200).json(res.locals.subtopic)
 );
 
-router.put('/subtopic/:id',
+router.put('/subtopic/',
   sessionController.isLoggedIn,
   subtopicController.putSubtopic,
   (req, res) => res.status(200).json(res.locals.subtopic)

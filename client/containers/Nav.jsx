@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import Topic from '../components/Topic.jsx'
+import Topic from '../components/Topic.jsx';
 
 function Nav(props) {
   const topicsFeed = [];
   // iterate through props.topics
-  for (let i = 0; i < props.topics.length; i++) {
-    topicsFeed.push(<Topic key={i} topics={props.topics[i]} />);
+  for (const topic_id in props.topics) {
+    topicsFeed.push(<Topic key={topic_id} topics={props.topics[topic_id]} getCards={props.getCards} topic_id={topic_id} deleteTopic={props.deleteTopic}/>);
   }
 
   return(
     <div>
-      <h2>Nav</h2>
+      <h2>Topics</h2>
       <form action='' onSubmit={(e) => props.topicSubmit(e)}>
-        <input type='text' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
+        <input type='text' placeholder='Add Topic...' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
         <input type='submit' />
       </form> 
       {topicsFeed}
     </div>
-  )
+  );
 }
 
 export default Nav;
