@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
 
 function Card(props) {
   function handleClick () {
@@ -10,10 +11,10 @@ function Card(props) {
   }  
     
   return(
-    <div>
+    <div className='Card'>
       <h3 onClick={handleClick} style={{cursor : 'pointer'}}>{ props.cards.title }</h3>
       <p>{ props.cards.emoji + ' ' + props.cards.text + ' ' + props.cards._id}</p>
-      <button onClick={() => props.deleteCard(props.cards._id)}>X</button>
+      <Button variant="contained" size="small" onClick={() => props.deleteCard(props.cards._id)}>X</Button>
     </div>
   );
 }

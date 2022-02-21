@@ -15,28 +15,31 @@ function CardContainer(props) {
   return(
     <div className="CardContainer">
       <h2>Subtopics</h2>
-      <button onClick={() => {
+      <button className='addSubtopic' onClick={() => {
         setCurrentCardId(undefined);
         setButtonPopup(true)}}>Add Subtopic</button>
-      {cardsFeed}
-      <ExpandedCard 
-        trigger={buttonPopup} 
-        setTrigger={setButtonPopup}
-        bodyText={props.bodyText} 
-        emojis={props.emojis} 
-        emojiText={props.emojiText} 
-        bodies={props.bodies} 
-        cards={props.cards} 
-        cardSubmit={props.cardSubmit} 
-        cardTextEntry={props.cardTextEntry} 
-        cardText={props.cardText}
-        bodyTextEntry={props.bodyTextEntry}
-        emojiTextEntry={props.emojiTextEntry}
-        addCard={props.addCard}
-        deleteCard={props.deleteCard}
-        currentCardId={currentCardId}
-        updateCard={props.updateCard}
-      />
+
+      <div className='subtopicsContainer'>
+        {cardsFeed}
+        <ExpandedCard 
+          trigger={buttonPopup} 
+          setTrigger={setButtonPopup}
+          bodyText={props.bodyText} 
+          emojis={props.emojis} 
+          emojiText={props.emojiText} 
+          bodies={props.bodies} 
+          cards={props.cards} 
+          cardSubmit={props.cardSubmit} 
+          cardTextEntry={props.cardTextEntry} 
+          cardText={props.cardText}
+          bodyTextEntry={props.bodyTextEntry}
+          emojiTextEntry={props.emojiTextEntry}
+          addCard={props.addCard}
+          deleteCard={props.deleteCard}
+          currentCardId={currentCardId}
+          updateCard={props.updateCard}
+        />
+      </div>
     </div>
   );
 }

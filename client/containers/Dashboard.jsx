@@ -211,38 +211,41 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div className='Dashboard'>
       <header>
-        <h1>GITGOOD</h1>
+        <h1 id='mainTitle'>GITGOOD</h1>
+        <h4 id='subTitle'>Organize your coding resources✅</h4>
       </header>
-      <Nav
-        getCards={getCards}
-        topics={topics}
-        topicSubmit={topicSubmit}
-        topicTextEntry={topicTextEntry}
-        topicText={topicText} 
-        deleteTopic={deleteTopic}
-      />
-      {currentTopicId &&
-      <CardContainer 
-        bodyText={bodyText} 
-        emojis={emojis} 
-        emojiText={emojiText} 
-        bodies={bodies} 
-        cards={cards} 
-        cardSubmit={cardSubmit} 
-        cardTextEntry={cardTextEntry} 
-        cardText={cardText}
-        bodyTextEntry={bodyTextEntry}
-        emojiTextEntry={emojiTextEntry}
-        addCard={addCard}
-        deleteCard={deleteCard}
-        setBodyText={setBodyText}
-        setEmojiText={setEmojiText}
-        setCardText={setCardText}
-        updateCard={updateCard}
-      /> 
-      }       
+      <div className='containers'>
+        <Nav
+          getCards={getCards}
+          topics={topics}
+          topicSubmit={topicSubmit}
+          topicTextEntry={topicTextEntry}
+          topicText={topicText} 
+          deleteTopic={deleteTopic}
+        />
+        {currentTopicId &&
+        <CardContainer 
+          bodyText={bodyText} 
+          emojis={emojis} 
+          emojiText={emojiText} 
+          bodies={bodies} 
+          cards={cards} 
+          cardSubmit={cardSubmit} 
+          cardTextEntry={cardTextEntry} 
+          cardText={cardText}
+          bodyTextEntry={bodyTextEntry}
+          emojiTextEntry={emojiTextEntry}
+          addCard={addCard}
+          deleteCard={deleteCard}
+          setBodyText={setBodyText}
+          setEmojiText={setEmojiText}
+          setCardText={setCardText}
+          updateCard={updateCard}
+        /> 
+        }  
+      </div>      
     </div>
   );
 }

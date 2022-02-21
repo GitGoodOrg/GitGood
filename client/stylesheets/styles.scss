@@ -1,0 +1,139 @@
+* {
+  font-family: Arial, Helvetica, sans-serif ;
+  }
+
+.App {
+  background-color: rgb(248, 223, 223);
+}
+
+.Dashboard {
+  text-align: center;
+}
+
+.containers{
+  display: flex;
+}
+
+.Nav {
+  display: flex;
+  flex-direction: column;
+  outline: 2px solid black;
+  border-radius: 10px;
+  padding: 25px 25px;
+  background-color: rgb(236, 236, 236);
+}
+
+.CardContainer {
+  outline: 2px solid black;
+  border-radius: 10px;
+  padding: 25px 50px;
+  width: 65%;
+  background-color: rgb(236, 236, 236);
+}
+
+.Card {
+  display: flex;
+  flex-direction: column;
+  outline: 2px solid black;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: lightgray;
+}
+
+.Topic {
+    text-align: left;
+    // outline: 2px solid black;
+    padding-left: 20px;
+    outline: 1px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: lightgray;
+    max-width: 300px ;
+}
+
+.Topic h3 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteButtons {
+    border-radius: 15px;
+    background-color: black;
+    color: white;
+    margin-right: 15px;
+      
+}
+
+.entryForm {
+    border-radius: 20px;
+    height: 30px;
+    width: 250px;
+}
+
+.submitButtons {
+    border-radius: 10px;
+}
+
+.subtopicsContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+}
+
+.ExpandedCard {
+    // display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.ExpandedCard-inner {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.ExpandedCard-inner .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.subtopicBody {
+    height: 300px;
+    width: 100%;
+    line-height: normal;
+    justify-content: left;
+    border-radius: 15px;
+}
+
+.addSubtopic {
+    border-radius: 10px;
+}
+
+.titleBody {
+    justify-content: left;
+    border-radius: 15px;
+    height:25px;
+    width: 325px;
+    margin-bottom: 4px;
+}
+
+.emojiBody {
+    justify-content: left;
+    border-radius: 15px;
+    height: 25px;
+    margin-bottom: 4px;
+    
+}

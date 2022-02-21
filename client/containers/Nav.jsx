@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Topic from '../components/Topic.jsx';
 
+
 function Nav(props) {
   const topicsFeed = [];
   // iterate through props.topics
@@ -9,11 +10,11 @@ function Nav(props) {
   }
 
   return(
-    <div>
+    <div className='Nav'>
       <h2>Topics</h2>
       <form action='' onSubmit={(e) => props.topicSubmit(e)}>
-        <input type='text' placeholder='Add Topic...' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
-        <input type='submit' />
+        <input type='text' className='entryForm' placeholder='Add Topic...' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
+        <input type='submit' className='submitButtons' />
       </form> 
       {topicsFeed}
     </div>

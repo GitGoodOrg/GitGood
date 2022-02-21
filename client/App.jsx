@@ -10,7 +10,7 @@ function App() {
       <GithubTest />
       <CssBaseline />
       {/* <h1>Test</h1> */}
-      <Dashboard />
+      <Dashboard/>
     </div>
   );
 }
