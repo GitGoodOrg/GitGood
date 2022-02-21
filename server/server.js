@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //Static Routes
-app.use(express.static(path.resolve(__dirname, '../client')));
+// app.use(express.static(path.resolve(__dirname, '../client')));
 
 /**
  * define route handlers
@@ -35,11 +35,14 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 // const sessionController = require('./controllers/sessionController');
 
 // app.get('/',(req,res) => {
-//   return res.sendFile(path.resolve('client','index.html'));
+//   return res.sendFile(path.resolve('dist','index.html'));
 // });
 
-// app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+if(process.env.NODE_ENV !== 'development') {
+  app.use('/', express.static(path.resolve(__dirname, '../dist')));
+}
 // app.get('/dist', (req, res) => {
+//   console.log('dist')
 //   return res.sendFile(path.resolve('dist','bundle.js'));
 // });
 
