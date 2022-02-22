@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Nav from './Nav.jsx';
 import CardContainer from './CardContainer.jsx';
+import GithubLogin from '../components/GithubLogin';
 
 function Dashboard() {
   //All the topics in key value pairs {_id: name}
@@ -215,8 +216,10 @@ function Dashboard() {
       <header>
         <h1 id='mainTitle' className='GitGoodTitle'>🤖GitGood</h1>
         <p id='subTitle' className='Tagline'>Organize your coding resources ✅</p>
-              </header>
+        {typeof topics !== 'object' && <GithubLogin /> }
+      </header>
       <div className='containers'>
+        {typeof topics === 'object' &&
         <Nav
           getCards={getCards}
           topics={topics}
@@ -225,7 +228,8 @@ function Dashboard() {
           topicText={topicText} 
           deleteTopic={deleteTopic}
         />
-        {currentTopicId &&
+        }
+        {currentTopicId && typeof topics === 'object' &&
         <CardContainer 
           bodyText={bodyText} 
           emojis={emojis} 
@@ -243,6 +247,7 @@ function Dashboard() {
           setEmojiText={setEmojiText}
           setCardText={setCardText}
           updateCard={updateCard}
+          currentTopicName={topics[currentTopicId]}
         /> 
         }  
       </div>      

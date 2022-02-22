@@ -15,10 +15,11 @@ function CardContainer(props) {
 
   return(
     <div className="CardContainer">
-      <h2>Subtopics</h2>
-      <Button variant="contained" size="small" className='addSubtopic' onClick={() => {
-        setCurrentCardId(undefined);
-        setButtonPopup(true)}}>Add Subtopic
+      <h2>{props.currentTopicName}</h2>
+      <Button variant="contained" size="small" className='addSubtopic' onClick={() => {setCurrentCardId(undefined);
+        setButtonPopup(true);}}
+      >
+        Add Subtopic
       </Button>
 
       <div className='subtopicsContainer'>
