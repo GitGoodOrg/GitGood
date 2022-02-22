@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Nav from './Nav.jsx';
 import CardContainer from './CardContainer.jsx';
+import GithubLogin from '../components/GithubLogin';
+import { Button } from '@mui/material';
 
 function Dashboard() {
   //All the topics in key value pairs {_id: name}
@@ -211,38 +213,46 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div className='Dashboard'>
       <header>
-        <h1>GITGOOD</h1>
+        <h1 id='mainTitle' className='GitGoodTitle'>🤖GitGood</h1>
+        <p id='subTitle' className='Tagline'>Organize your coding resources ✅</p>
+        {typeof topics !== 'object' ? <GithubLogin /> 
+          : <Button variant="outlined" href='/logout'>Log out</Button>}
       </header>
-      <Nav
-        getCards={getCards}
-        topics={topics}
-        topicSubmit={topicSubmit}
-        topicTextEntry={topicTextEntry}
-        topicText={topicText} 
-        deleteTopic={deleteTopic}
-      />
-      {currentTopicId &&
-      <CardContainer 
-        bodyText={bodyText} 
-        emojis={emojis} 
-        emojiText={emojiText} 
-        bodies={bodies} 
-        cards={cards} 
-        cardSubmit={cardSubmit} 
-        cardTextEntry={cardTextEntry} 
-        cardText={cardText}
-        bodyTextEntry={bodyTextEntry}
-        emojiTextEntry={emojiTextEntry}
-        addCard={addCard}
-        deleteCard={deleteCard}
-        setBodyText={setBodyText}
-        setEmojiText={setEmojiText}
-        setCardText={setCardText}
-        updateCard={updateCard}
-      /> 
-      }       
+      <div className='containers'>
+        {typeof topics === 'object' &&
+        <Nav
+          getCards={getCards}
+          topics={topics}
+          topicSubmit={topicSubmit}
+          topicTextEntry={topicTextEntry}
+          topicText={topicText} 
+          deleteTopic={deleteTopic}
+        />
+        }
+        {currentTopicId && typeof topics === 'object' &&
+        <CardContainer 
+          bodyText={bodyText} 
+          emojis={emojis} 
+          emojiText={emojiText} 
+          bodies={bodies} 
+          cards={cards} 
+          cardSubmit={cardSubmit} 
+          cardTextEntry={cardTextEntry} 
+          cardText={cardText}
+          bodyTextEntry={bodyTextEntry}
+          emojiTextEntry={emojiTextEntry}
+          addCard={addCard}
+          deleteCard={deleteCard}
+          setBodyText={setBodyText}
+          setEmojiText={setEmojiText}
+          setCardText={setCardText}
+          updateCard={updateCard}
+          currentTopicName={topics[currentTopicId]}
+        /> 
+        }  
+      </div>      
     </div>
   );
 }

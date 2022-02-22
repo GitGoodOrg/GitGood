@@ -21,11 +21,14 @@ sessionController.isLoggedIn = (req, res, next) => {
       }
       //JWT does not exist
     } else {
-      //HARD CODED USERNAME TO FIX CORS TEMP
-      // return res
-      //   .json('not logged in');
-      res.locals.username = 'nlakshman';
-      return next();
+      //HARD CODED USERNAME TO FIX CORS ISSUE
+      if(process.env.NODE_ENV === 'development') {
+        res.locals.username = 'nlakshman';
+        return next();
+      } else {
+        return res
+          .json('not logged in');
+      }
     }
   } catch(err) {
     return next({

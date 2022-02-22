@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Topic from '../components/Topic.jsx';
+import { Button } from '@mui/material';
+import { TextField } from '@mui/material';
+
 
 function Nav(props) {
   const topicsFeed = [];
@@ -9,12 +12,13 @@ function Nav(props) {
   }
 
   return(
-    <div>
+    <div className='Nav'>
       <h2>Topics</h2>
       <form action='' onSubmit={(e) => props.topicSubmit(e)}>
-        <input type='text' placeholder='Add Topic...' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
-        <input type='submit' />
+        <TextField sx={{ m: 0.5 }} size="small" type='text' className='entryForm' placeholder='Add Topic...' onChange={(e) => props.topicTextEntry(e)} value={props.topicText}/>
+        <Button sx={{ m: 0.5 }} variant="contained" size="small" type='submit' className='submitButtons'>Submit</Button>
       </form> 
+      <br></br>
       {topicsFeed}
     </div>
   );

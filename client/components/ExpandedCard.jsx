@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './ExpandedCard.css';
+// import './ExpandedCard.css';
+import { TextField } from '@mui/material';
+import { Button } from '@mui/material';
 
 function ExpandedCard(props) {
 
@@ -17,16 +19,16 @@ function ExpandedCard(props) {
   return (props.trigger) ? (
     <div className="ExpandedCard">
       <div className="ExpandedCard-inner">
-        <button className="close-btn" onClick={() => props.setTrigger(false)}>close</button>
+        <Button className="close-btn" onClick={() => props.setTrigger(false)}>close</Button>
         <form action='' onSubmit={handleSubmit}>
-          <input type='text' placeholder='Select emoji...' onChange={(e) => props.emojiTextEntry(e)} value={props.emojiText}/><br></br>
-          <input type='text' placeholder='Add subtopic title...' onChange={(e) => props.cardTextEntry(e)} value={props.cardText}/><br></br>
-          <input type='text' placeholder='Add subtopic body...' onChange={(e) => props.bodyTextEntry(e)} value={props.bodyText}/><br></br>
-          <input type='submit' value="Save Subtopic"/>
+          <TextField size='small' sx={{ m: 0.1 }} type='text' className='emojiBody' placeholder='Select emoji...' onChange={(e) => props.emojiTextEntry(e)} value={props.emojiText}/> <TextField size="small" sx={{ m: 3 }} type='text' className='titleBody' placeholder='Add subtopic title...' onChange={(e) => props.cardTextEntry(e)} value={props.cardText}/>
+          <br></br>
+          <textarea type='text' className='subtopicBody' placeholder='Add subtopic body...' onChange={(e) => props.bodyTextEntry(e)} value={props.bodyText}/><br></br>
+          <Button variant="contained" type='submit' className='submitButtons' value="Save Subtopic">Save Subtopic</Button>
         </form>
       </div>
     </div>
   ) : '';
 }
-
+// sx={{ m: 0.5 }}
 export default ExpandedCard;
