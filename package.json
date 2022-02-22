@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open /\" \"nodemon ./server/server.js\"",
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open /\" \"cross-env NODE_ENV=development nodemon ./server/server.js\"",
     "start": "nodemon ./server/server.js",
     "test": "jest --verbose"
   },
@@ -33,6 +33,7 @@
     "@mui/material": "^5.4.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.7",

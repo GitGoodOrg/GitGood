@@ -8,7 +8,7 @@ const sessionController = {};
 sessionController.isLoggedIn = (req, res, next) => {
   try {
     if(req.cookies.ssid) {
-      var decoded = jwt.verify(req.cookies.ssid, process.env.SECRET_KEY);
+      const decoded = jwt.verify(req.cookies.ssid, process.env.SECRET_KEY);
       if(decoded.username !== undefined) {
         res.locals.username = decoded.username;
         return next();
@@ -21,8 +21,14 @@ sessionController.isLoggedIn = (req, res, next) => {
       }
       //JWT does not exist
     } else {
-      return res
-        .json('not logged in');
+      //HARD CODED USERNAME TO FIX CORS ISSUE
+      if(process.env.NODE_ENV === 'development') {
+        res.locals.username = 'nlakshman';
+        return next();
+      } else {
+        return res
+          .json('not logged in');
+      }
     }
   } catch(err) {
     return next({
@@ -38,8 +44,8 @@ sessionController.startSession = (req, res, next) => {
   try {
     const username = res.locals.profile.login;
     const email = res.locals.profile.email;
-    var token = jwt.sign({ username: username }, process.env.SECRET_KEY);
-    res.cookie('ssid', token, {httpOnly: true});
+    const token = jwt.sign({ username: username }, process.env.SECRET_KEY);
+    res.cookie('ssid', token); //{httpOnly: true}
     return next();
   } catch(err) {
     return next({

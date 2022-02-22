@@ -30,9 +30,14 @@ module.exports = {
     // match the output 'publicPath'
     // publicPath: '/',
     // fallback to root for other urls
-    historyApiFallback: true,
+    // historyApiFallback: true,
 
-    headers: { 'Access-Control-Allow-Origin': '*' },
+    // headers: { 'Access-Control-Allow-Origin': '*' },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+    },
     proxy: {
       '/api/**': {
         target: 'http://localhost:3000/',
@@ -46,14 +51,14 @@ module.exports = {
         target: 'http://localhost:3000/',
         secure: false,
       },
-      // '/login': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
-      // '/logout': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
+      '/github': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/logout': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
       // '/signup': {
       //   target: 'http://localhost:3000/',
       //   secure: false,
