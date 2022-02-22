@@ -3,11 +3,15 @@
   }
 
 .App {
-  background-color: rgb(248, 223, 223);
+  background-color: white;
 }
 
 .Dashboard {
   text-align: center;
+}
+
+.GitGoodTitle{
+  
 }
 
 .containers{
@@ -17,38 +21,42 @@
 .Nav {
   display: flex;
   flex-direction: column;
-  outline: 2px solid black;
+  outline: 2px solid #1976D2;
   border-radius: 10px;
   padding: 25px 25px;
-  background-color: rgb(236, 236, 236);
+  background-color: white;
 }
 
 .CardContainer {
-  outline: 2px solid black;
+  outline: 2px solid #1976D2;
   border-radius: 10px;
   padding: 25px 50px;
   width: 65%;
-  background-color: rgb(236, 236, 236);
+  background-color: white;
+  margin-left: 10px;
 }
 
 .Card {
   display: flex;
   flex-direction: column;
-  outline: 2px solid black;
+  outline: 1px solid #1976D2;
   margin: 5px;
   border-radius: 10px;
-  background-color: lightgray;
+  background-color: white;
+  position: relative;
+  box-shadow: 5px 5px 5px 1px #DAE1E7;
 }
 
 .Topic {
     text-align: left;
     // outline: 2px solid black;
     padding-left: 20px;
-    outline: 1px solid black;
+    outline: 1px solid #1976D2;
     border-radius: 10px;
     margin-top: 10px;
-    background-color: lightgray;
+    background-color: white;
     max-width: 300px ;
+    box-shadow: 5px 5px 5px 1px #DAE1E7;
 }
 
 .Topic h3 {
@@ -72,6 +80,7 @@
 
 .submitButtons {
     border-radius: 10px;
+    margin-left: 5px;
 }
 
 .subtopicsContainer{
@@ -79,6 +88,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
 //   flex-direction: row;
 //   flex-wrap: wrap;
+  margin: 4px;
 }
 
 .ExpandedCard {
@@ -116,6 +126,8 @@
     line-height: normal;
     justify-content: left;
     border-radius: 15px;
+    cursor: pointer;
+    float: right;
 }
 
 .addSubtopic {
@@ -136,4 +148,15 @@
     height: 25px;
     margin-bottom: 4px;
     
+}
+
+.cardButton { 
+  position: absolute;
+  bottom: 0;
+  align-self: center;
+  // justify-self: flex-end; 
+}
+
+.entryForm {
+  border: 2px solid #1976D2;
 }

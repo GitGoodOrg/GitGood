@@ -13,8 +13,8 @@ function Card(props) {
   return(
     <div className='Card'>
       <h3 onClick={handleClick} style={{cursor : 'pointer'}}>{ props.cards.title }</h3>
-      <p>{ props.cards.emoji + ' ' + props.cards.text + ' ' + props.cards._id}</p>
-      <Button variant="contained" size="small" onClick={() => props.deleteCard(props.cards._id)}>X</Button>
+      <p>{ props.cards.emoji + ' ' + props.cards.text}</p>
+      <Button className='cardButton' variant="text" size="small" onClick={() => props.deleteCard(props.cards._id)}>X</Button>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../components/Card.jsx';
 import ExpandedCard from '../components/ExpandedCard.jsx';
+import { Button } from '@mui/material';
 
 function CardContainer(props) {
   const [ buttonPopup, setButtonPopup ] = useState(false);
@@ -15,9 +16,10 @@ function CardContainer(props) {
   return(
     <div className="CardContainer">
       <h2>Subtopics</h2>
-      <button className='addSubtopic' onClick={() => {
+      <Button variant="contained" size="small" className='addSubtopic' onClick={() => {
         setCurrentCardId(undefined);
-        setButtonPopup(true)}}>Add Subtopic</button>
+        setButtonPopup(true)}}>Add Subtopic
+      </Button>
 
       <div className='subtopicsContainer'>
         {cardsFeed}

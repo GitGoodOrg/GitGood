@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import './ExpandedCard.css';
+import { TextField } from '@mui/material';
 
 function ExpandedCard(props) {
 
@@ -21,7 +22,7 @@ function ExpandedCard(props) {
         <form action='' onSubmit={handleSubmit}>
           <input type='text' className='emojiBody' placeholder='Select emoji...' onChange={(e) => props.emojiTextEntry(e)} value={props.emojiText}/> <input type='text' className='titleBody' placeholder='Add subtopic title...' onChange={(e) => props.cardTextEntry(e)} value={props.cardText}/>
           <br></br>
-          <input type='text' className='subtopicBody' placeholder='Add subtopic body...' onChange={(e) => props.bodyTextEntry(e)} value={props.bodyText}/><br></br>
+          <textarea type='text' className='subtopicBody' placeholder='Add subtopic body...' onChange={(e) => props.bodyTextEntry(e)} value={props.bodyText}/><br></br>
           <input type='submit' className='submitButtons' value="Save Subtopic"/>
         </form>
       </div>

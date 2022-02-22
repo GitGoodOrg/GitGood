@@ -213,9 +213,9 @@ function Dashboard() {
   return (
     <div className='Dashboard'>
       <header>
-        <h1 id='mainTitle'>GITGOOD</h1>
-        <h4 id='subTitle'>Organize your coding resources✅</h4>
-      </header>
+        <h1 id='mainTitle' className='GitGoodTitle'>GitGood</h1>
+        <h4 id='subTitle'>Organize your coding resources ✅</h4>
+              </header>
       <div className='containers'>
         <Nav
           getCards={getCards}
