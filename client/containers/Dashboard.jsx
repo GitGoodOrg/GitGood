@@ -213,8 +213,8 @@ function Dashboard() {
   return (
     <div className='Dashboard'>
       <header>
-        <h1 id='mainTitle' className='GitGoodTitle'>GitGood</h1>
-        <h4 id='subTitle'>Organize your coding resources ✅</h4>
+        <h1 id='mainTitle' className='GitGoodTitle'>🤖GitGood</h1>
+        <p id='subTitle' className='Tagline'>Organize your coding resources ✅</p>
               </header>
       <div className='containers'>
         <Nav

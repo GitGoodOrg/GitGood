@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function App() {
   return (
-    <Button 
+    <Button
       variant="outlined" 
       startIcon={<GitHubIcon />}
       onClick={()=>location.href = '/github/auth'}

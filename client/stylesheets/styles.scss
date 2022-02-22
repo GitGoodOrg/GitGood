@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Oswald:wght@200&family=Roboto+Mono:wght@500&display=swap');
+
 * {
-  font-family: Arial, Helvetica, sans-serif ;
+  font-family: 'Roboto Mono', monospace;
   }
 
 .App {
   background-color: white;
+}
+
+.GitHub {
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 .Dashboard {
@@ -11,7 +18,14 @@
 }
 
 .GitGoodTitle{
-  
+  font-weight: bold;
+  font-size: 75px;
+  margin: 0;
+}
+
+.Tagline{
+  margin-top: 5px;
+  font-size:20px;
 }
 
 .containers{
@@ -25,6 +39,7 @@
   border-radius: 10px;
   padding: 25px 25px;
   background-color: white;
+  margin-left: 5px;
 }
 
 .CardContainer {
@@ -126,8 +141,8 @@
     line-height: normal;
     justify-content: left;
     border-radius: 15px;
-    cursor: pointer;
     float: right;
+    border-color: lightgray;
 }
 
 .addSubtopic {
