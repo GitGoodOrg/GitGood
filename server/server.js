@@ -53,7 +53,7 @@ app.use('/github', githubRouter);
 app.get('/logout',
   (req, res) => {
     return res
-      .clearCookie('access_token')
+      .clearCookie('ssid')
       .redirect('/');
   }
 );

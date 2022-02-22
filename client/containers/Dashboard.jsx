@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Nav from './Nav.jsx';
 import CardContainer from './CardContainer.jsx';
 import GithubLogin from '../components/GithubLogin';
+import { Button } from '@mui/material';
 
 function Dashboard() {
   //All the topics in key value pairs {_id: name}
@@ -216,7 +217,8 @@ function Dashboard() {
       <header>
         <h1 id='mainTitle' className='GitGoodTitle'>🤖GitGood</h1>
         <p id='subTitle' className='Tagline'>Organize your coding resources ✅</p>
-        {typeof topics !== 'object' && <GithubLogin /> }
+        {typeof topics !== 'object' ? <GithubLogin /> 
+          : <Button variant="outlined" href='/logout'>Log out</Button>}
       </header>
       <div className='containers'>
         {typeof topics === 'object' &&
