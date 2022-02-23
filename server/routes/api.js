@@ -7,16 +7,26 @@ const subtopicController = require('../controllers/subtopicController');
 const router = express.Router();
 
 // TOPIC - CRUD routes
+
+//retrieves all topics for front page
 router.get('/topic',
   sessionController.isLoggedIn,
   topicController.getTopics,
   (req, res) => res.status(200).json(res.locals.topics)
 );
 
+//creates a new topic
 router.post('/topic/',
   sessionController.isLoggedIn,
   topicController.postTopic,
   (req, res) => res.status(200).json(res.locals.topic)
+);
+
+//creates a new card
+router.post('/subtopic/',
+  sessionController.isLoggedIn,
+  subtopicController.postSubtopic,
+  (req, res) => res.status(200).json(res.locals.subtopic)
 );
 
 router.delete('/topic/:id',
@@ -30,12 +40,6 @@ router.get('/subtopic/:topic_id',
   sessionController.isLoggedIn,
   subtopicController.getSubtopics,
   (req, res) => res.status(200).json(res.locals.subtopics)
-);
-
-router.post('/subtopic/',
-  sessionController.isLoggedIn,
-  subtopicController.postSubtopic,
-  (req, res) => res.status(200).json(res.locals.subtopic)
 );
 
 router.delete('/subtopic/:id',

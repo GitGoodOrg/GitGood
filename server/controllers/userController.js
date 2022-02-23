@@ -10,16 +10,19 @@ const userController = {};
 // add user to database
 userController.addUser = async (req, res, next) => {
   const username = res.locals.profile.login;
-  const email = res.locals.profile.email;
-  const token = res.locals.access_token;
+  console.log(res.locals.profile.login);
+  //const email = res.locals.profile.email;
+  //const token = res.locals.access_token;
   try {
     const sqlQuery = `
-    INSERT INTO Users (username, email, token)
-    VALUES($1,$2, $3) 
-    ON CONFLICT (username) DO UPDATE
-    SET token = EXCLUDED.token;
+    INSERT INTO Users (name)
+    VALUES($1)
     `;
-    await db.query(sqlQuery, [username, email, token]); 
+    //ON CONFLICT (username) DO UPDATE
+    //SET token = EXCLUDED.token;
+
+    //might need to re-add token if errors occurr in oath
+    await db.query(sqlQuery, [username]); 
     return next();
   } catch(err) {
     return next({

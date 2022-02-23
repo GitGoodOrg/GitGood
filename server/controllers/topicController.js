@@ -3,18 +3,11 @@ const db = require('../db/db');
 const topicController = {};
 
 topicController.getTopics = (req, res, next) => {
-
-  const username = res.locals.username;
-
-  const sqlQuery = 'SELECT * FROM topics WHERE username=$1';
-
-  db.query(sqlQuery,[username])
+//retrieve the single category from database
+  const sqlQuery = 'SELECT * FROM categories';
+  db.query(sqlQuery)
     .then(payload => {
-      const result = {};
-      payload.rows.forEach((curr) => {
-        result[curr._id] = curr.topic_name;
-      });
-      res.locals.topics = result;
+      res.locals.topics = payload.rows;
       next();
     }).catch(err => {
       return next({
@@ -25,13 +18,13 @@ topicController.getTopics = (req, res, next) => {
 };
 
 topicController.postTopic = (req, res, next) => {
-  const username = res.locals.username;
-  const {topic_name} = req.body;
-  console.log(req.body);
+  
+  const {category} = req.body;
 
-  const sqlQuery = 'INSERT INTO topics (username, topic_name) VALUES ($1, $2) RETURNING *';
 
-  db.query(sqlQuery,[username, topic_name])
+  const sqlQuery = 'INSERT INTO categories (name) VALUES ($1) RETURNING *';
+
+  db.query(sqlQuery,[category])
     .then(payload => {
       res.locals.topic = payload.rows[0];
       next();
