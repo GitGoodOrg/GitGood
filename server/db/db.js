@@ -28,3 +28,14 @@ module.exports = {
 //     .then(res => console.log(res.rows[0].name)) // brianc
 //     .catch(err => console.error('Error executing query', err.stack))
 // }
+
+/*CREATE TABLE categories(
+  _id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL)*/
+
+
+/*CREATE TABLE cards(
+_id SERIAL PRIMARY KEY,
+question VARCHAR NOT NULL, answer VARCHAR NOT NULL, 
+category_id int REFERENCES categories(_id),
+creator int REFERENCES users(_id))*/ 

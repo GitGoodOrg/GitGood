@@ -22,16 +22,12 @@ subtopicController.getSubtopics = (req, res, next) => {
 
 subtopicController.postSubtopic = (req, res, next) => {
   // const {topic_id} = req.params;
-  let {topic_id, emoji, title, text, progress} = req.body;
-  emoji = emoji || '';
-  title = title || 'Title Holder'; //for dev only
-  text = text || '';
-  progress = progress || 0;
-  
-  const sqlQuery = `INSERT INTO subtopics (topic_id, emoji, title, text, progress) 
-    VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+  const {question, answer, category_id, creator} = req.body;
+
+  const sqlQuery = `INSERT INTO cards (question, answer, category_id, creator) 
+    VALUES ($1, $2, $3, $4) RETURNING *`;
     // console.log('topic_id',topic_id, emoji, title, text, progress);
-  db.query(sqlQuery, [topic_id, emoji, title, text, progress])
+  db.query(sqlQuery, [question, answer, category_id, creator])
     .then(payload => {
       res.locals.subtopic = payload.rows[0];
       next();
