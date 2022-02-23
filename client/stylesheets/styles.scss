@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Oswald:wght@200&family=Roboto+Mono:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cabin&family=Oswald:wght@200&family=Roboto+Mono:wght@500&display=swap");
 
 * {
-  font-family: 'Roboto Mono', monospace;
-  }
+  font-family: "Roboto Mono", monospace;
+}
 
 .App {
   background-color: white;
@@ -18,29 +18,29 @@
   text-align: center;
 }
 
-.GitGoodTitle{
+.GitGoodTitle {
   font-weight: bold;
   font-size: 75px;
   margin: 0;
 }
 
-.Tagline{
+.Tagline {
   margin-top: 5px;
-  font-size:20px;
+  font-size: 20px;
 }
 
-header{
+header {
   margin-bottom: 1rem;
 }
 
-.containers{
+.containers {
   display: flex;
 }
 
 .Nav {
   display: flex;
   flex-direction: column;
-  outline: 2px solid #1976D2;
+  outline: 2px solid #1976d2;
   border-radius: 10px;
   padding: 25px 25px;
   background-color: white;
@@ -48,7 +48,7 @@ header{
 }
 
 .CardContainer {
-  outline: 2px solid #1976D2;
+  outline: 2px solid #1976d2;
   border-radius: 10px;
   padding: 25px 50px;
   width: 65%;
@@ -59,125 +59,122 @@ header{
 .Card {
   display: flex;
   flex-direction: column;
-  outline: 1px solid #1976D2;
+  outline: 1px solid #1976d2;
   margin: 5px;
   border-radius: 10px;
   background-color: white;
   position: relative;
-  box-shadow: 5px 5px 5px 1px #DAE1E7;
+  box-shadow: 5px 5px 5px 1px #dae1e7;
 }
 
 .Topic {
-    text-align: left;
-    // outline: 2px solid black;
-    padding-left: 20px;
-    outline: 1px solid #1976D2;
-    border-radius: 10px;
-    margin-top: 10px;
-    background-color: white;
-    max-width: 300px ;
-    box-shadow: 5px 5px 5px 1px #DAE1E7;
+  text-align: left;
+  padding-left: 20px;
+  outline: 1px solid #1976d2;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: white;
+  max-width: 300px;
+  box-shadow: 5px 5px 5px 1px #dae1e7;
 }
 
 .Topic h3 {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .deleteButtons {
-    border-radius: 15px;
-    background-color: black;
-    color: white;
-    margin-right: 15px;
-      
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+  margin-right: 15px;
 }
 
 .entryForm {
-    border-radius: 20px;
-    height: 30px;
-    width: 250px;
+  border-radius: 20px;
+  height: 30px;
+  width: 250px;
 }
 
 .submitButtons {
-    border-radius: 10px;
-    margin-left: 5px;
+  border-radius: 10px;
+  margin-left: 5px;
 }
 
-.subtopicsContainer{
+.subtopicsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-//   flex-direction: row;
-//   flex-wrap: wrap;
+  //   flex-direction: row;
+  //   flex-wrap: wrap;
   margin: 4px;
 }
 
 .ExpandedCard {
-    // display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
+  // display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
 }
 
 .ExpandedCard-inner {
-    position: relative;
-    padding: 32px;
-    width: 100%;
-    max-width: 640px;
-    background-color: white;
-    border-radius: 15px;
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  max-width: 640px;
+  background-color: white;
+  border-radius: 15px;
 }
 
 .ExpandedCard-inner .close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
 
 .subtopicBody {
-    height: 300px;
-    width: 100%;
-    line-height: normal;
-    justify-content: left;
-    border-radius: 15px;
-    float: right;
-    border-color: lightgray;
-    padding: 1em;
+  height: 300px;
+  width: 100%;
+  line-height: normal;
+  justify-content: left;
+  border-radius: 15px;
+  float: right;
+  border-color: lightgray;
+  padding: 1em;
 }
 
 .addSubtopic {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 .titleBody {
-    justify-content: left;
-    border-radius: 15px;
-    height:25px;
-    width: 325px;
-    margin-bottom: 4px;
+  justify-content: left;
+  border-radius: 15px;
+  height: 25px;
+  width: 325px;
+  margin-bottom: 4px;
 }
 
 .emojiBody {
-    justify-content: left;
-    border-radius: 15px;
-    height: 25px;
-    margin-bottom: 4px;
-    
+  justify-content: left;
+  border-radius: 15px;
+  height: 25px;
+  margin-bottom: 4px;
 }
 
-.cardButton { 
+.cardButton {
   position: absolute;
   bottom: 0;
   align-self: center;
-  // justify-self: flex-end; 
+  // justify-self: flex-end;
 }
 
 .entryForm {
-  border: 2px solid #1976D2;
+  border: 2px solid #1976d2;
 }

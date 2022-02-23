@@ -1,14 +1,18 @@
-import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import Dashboard from './containers/Dashboard.jsx';
+import React, { createContext, useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import Dashboard from "./containers/Dashboard.jsx";
+
+export const TopicContext = React.createContext();
 
 function App() {
+  const [currentTopicId, setCurrentTopicId] = useState("1");
   return (
-    <div className='App'>
+    <div className="App">
       <CssBaseline />
-      {/* <h1>Test</h1> */}
-      <Dashboard/>
+      <TopicContext.Provider value={{ currentTopicId, setCurrentTopicId }}>
+        <Dashboard />
+      </TopicContext.Provider>
+      ;
     </div>
   );
 }

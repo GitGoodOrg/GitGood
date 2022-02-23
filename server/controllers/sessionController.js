@@ -1,57 +1,49 @@
-const { query } = require('express');
-const db = require('../db/db');
-var jwt = require('jsonwebtoken');
+var jwt = require("jsonwebtoken");
 
 const sessionController = {};
 
-//Check if user is already logged in
-sessionController.isLoggedIn = (req, res, next) => {
+sessionController.startSession = (req, res, next) => {
   try {
-    if(req.cookies.ssid) {
-      const decoded = jwt.verify(req.cookies.ssid, process.env.SECRET_KEY);
-      if(decoded.username !== undefined) {
-        res.locals.username = decoded.username;
-        return next();
-      }
-      else {
-        //JWT exists but is not verified
-        return res
-          .clearCookie('access_token')
-          .json('not logged in');
-      }
-      //JWT does not exist
-    } else {
-      //HARD CODED USERNAME TO FIX CORS ISSUE
-      if(process.env.NODE_ENV === 'development') {
-        res.locals.username = 'nlakshman';
-        return next();
-      } else {
-        return res
-          .json('not logged in');
-      }
-    }
-  } catch(err) {
+    const username = res.locals.profile.login;
+    const token = jwt.sign({ username: username }, process.env.SECRET_KEY);
+    res.cookie("ssid", token);
+    return next();
+  } catch (err) {
     return next({
-      log: `Cannot check if user is logged in (sessionController.isLoggedIn) Err: ${err.message}`,
+      log: `Cannot start session. Error in sessionController.startSession Err: ${err.message}`,
       status: 500,
-      message: { err: 'An error occurred' },
+      message: { err: "An error occurred" },
     });
   }
 };
 
-// add session JWT to cookies
-sessionController.startSession = (req, res, next) => {
+sessionController.isLoggedIn = (req, res, next) => {
   try {
-    const username = res.locals.profile.login;
-    const email = res.locals.profile.email;
-    const token = jwt.sign({ username: username }, process.env.SECRET_KEY);
-    res.cookie('ssid', token); //{httpOnly: true}
-    return next();
-  } catch(err) {
+    if (req.cookies.ssid) {
+      const decoded = jwt.verify(req.cookies.ssid, process.env.SECRET_KEY);
+      if (decoded.username) {
+        res.locals.username = decoded.username;
+        return next();
+      } else {
+        //JWT exists but is not verified (e.g. a user creates an ssid cookie themselves in the browser)
+        return res.clearCookie("access_token").json("not logged in");
+      }
+    } else {
+      //SSID cookie does not exist
+      //In Dev, bypass the need to login
+      if (process.env.NODE_ENV === "development") {
+        // TODO - change
+        res.locals.username = "nlakshman";
+        return next();
+      } else {
+        return res.json("not logged in");
+      }
+    }
+  } catch (err) {
     return next({
-      log: `Cannot start session. Error in sessionController.startSession Err: ${err.message}`,
+      log: `Cannot check if user is logged in (sessionController.isLoggedIn) Err: ${err.message}`,
       status: 500,
-      message: { err: 'An error occurred' },
+      message: { err: "An error occurred" },
     });
   }
 };
