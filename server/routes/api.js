@@ -3,6 +3,7 @@ const express = require('express');
 const sessionController = require('../controllers/sessionController');
 const topicController = require('../controllers/topicController');
 const subtopicController = require('../controllers/subtopicController');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -10,21 +11,21 @@ const router = express.Router();
 
 //retrieves all topics for front page
 router.get('/topic',
-  sessionController.isLoggedIn,
+  // sessionController.isLoggedIn,
   topicController.getTopics,
   (req, res) => res.status(200).json(res.locals.topics)
 );
 
 //creates a new topic
 router.post('/topic/',
-  sessionController.isLoggedIn,
+  //sessionController.isLoggedIn,
   topicController.postTopic,
   (req, res) => res.status(200).json(res.locals.topic)
 );
 
 //creates a new card
 router.post('/subtopic/',
-  sessionController.isLoggedIn,
+  //sessionController.isLoggedIn,
   subtopicController.postSubtopic,
   (req, res) => res.status(200).json(res.locals.subtopic)
 );
