@@ -217,11 +217,11 @@ function Dashboard() {
       <header>
         <h1 id='mainTitle' className='GitGoodTitle'>🤖GitGood</h1>
         <p id='subTitle' className='Tagline'>Organize your coding resources ✅</p>
-        {typeof topics !== 'object' ? <GithubLogin /> 
-          : <Button variant="outlined" href='/logout'>Log out</Button>}
+        {/* {typeof topics !== 'object' ? <GithubLogin /> 
+          : <Button variant="outlined" href='/logout'>Log out</Button>} */}
       </header>
       <div className='containers'>
-        {typeof topics === 'object' &&
+        {/* {typeof topics === 'object' && */}
         <Nav
           getCards={getCards}
           topics={topics}
@@ -230,8 +230,8 @@ function Dashboard() {
           topicText={topicText} 
           deleteTopic={deleteTopic}
         />
-        }
-        {currentTopicId && typeof topics === 'object' &&
+        {/* } */}
+        {/* {currentTopicId && typeof topics === 'object' && */}
         <CardContainer 
           bodyText={bodyText} 
           emojis={emojis} 
@@ -251,7 +251,7 @@ function Dashboard() {
           updateCard={updateCard}
           currentTopicName={topics[currentTopicId]}
         /> 
-        }  
+        {/* }   */}
       </div>      
     </div>
   );

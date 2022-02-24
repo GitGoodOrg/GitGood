@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from '@mui/material';
 
 function Topic(props) {
+  console.log(props.topics);
   return (
     <div className="Topic">
       <h3 style={{ cursor: 'pointer' }}>
