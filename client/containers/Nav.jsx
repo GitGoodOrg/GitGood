@@ -8,7 +8,6 @@ function Nav(props) {
   const topicsFeed = [];
   // iterate through props.topics
   for (const topic_id in props.topics) {
-    console.log(props.topics[topic_id].name);
     topicsFeed.push(<Topic key={topic_id} topics={props.topics[topic_id].name} getCards={props.getCards} topic_id={topic_id} deleteTopic={props.deleteTopic} />);
   }
 

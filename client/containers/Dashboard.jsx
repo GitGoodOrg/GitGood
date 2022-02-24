@@ -3,6 +3,7 @@ import Nav from './Nav.jsx';
 import CardContainer from './CardContainer.jsx';
 import GithubLogin from '../components/GithubLogin';
 import { Button } from '@mui/material';
+import regeneratorRuntime from 'regenerator-runtime';
 
 function Dashboard() {
   //All the topics in key value pairs {_id: name}
@@ -46,26 +47,39 @@ function Dashboard() {
       });
   };
 
-  const topicSubmit = (e) => {
+  const topicSubmit = async (e) => {
     // const topicTitle = e.target[0].value;
     e.preventDefault();
-    fetch('http://localhost:3000/api/topic', {
-      method: 'Post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        topic_name: topicText,
-      })
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-        const topicsCopy = { ...topics };
-        topicsCopy[data._id] = data.topic_name;
-        setTopics(topicsCopy);
-        setTopicText('');
-      });
+    try {
+      const body = { topicText };
+      const response = await fetch('http://localhost:3000/api/topic', {
+        method: 'Post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }
+      )
+    } catch (err) {
+      console.log(err.message);
+    }
+    // fetch('http://localhost:3000/api/topic', {
+    //   method: 'Post',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     topic_name: topicText,
+    //   })
+    // })
+    //   .then((data) => data.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     const topicsCopy = { ...topics };
+    //     topicsCopy[data._id] = data.topic_name;
+    //     setTopics(topicsCopy);
+    //     setTopicText('');
+    //   });
   };
 
   const deleteTopic = (topic_id) => {
@@ -231,28 +245,29 @@ function Dashboard() {
             deleteTopic={deleteTopic}
           />
         }
-        {/* {currentTopicId && typeof topics === 'object' && */}
+        {currentTopicId && typeof topics === 'object' &&
 
+          <CardContainer
+            bodyText={bodyText}
+            emojis={emojis}
+            emojiText={emojiText}
+            bodies={bodies}
+            cards={cards}
+            cardSubmit={cardSubmit}
+            cardTextEntry={cardTextEntry}
+            cardText={cardText}
+            bodyTextEntry={bodyTextEntry}
+            emojiTextEntry={emojiTextEntry}
+            addCard={addCard}
+            deleteCard={deleteCard}
+            setBodyText={setBodyText}
+            setEmojiText={setEmojiText}
+            setCardText={setCardText}
+            updateCard={updateCard}
+            currentTopicName={topics[currentTopicId]}
+          />
+        }
       </div>
-      {/* <CardContainer
-        bodyText={bodyText}
-        emojis={emojis}
-        emojiText={emojiText}
-        bodies={bodies}
-        cards={cards}
-        cardSubmit={cardSubmit}
-        cardTextEntry={cardTextEntry}
-        cardText={cardText}
-        bodyTextEntry={bodyTextEntry}
-        emojiTextEntry={emojiTextEntry}
-        addCard={addCard}
-        deleteCard={deleteCard}
-        setBodyText={setBodyText}
-        setEmojiText={setEmojiText}
-        setCardText={setCardText}
-        updateCard={updateCard}
-        currentTopicName={topics[currentTopicId]}
-      /> */}
     </div>
   );
 }
