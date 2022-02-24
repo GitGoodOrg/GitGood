@@ -3,25 +3,26 @@ import Nav from './Nav.jsx';
 import CardContainer from './CardContainer.jsx';
 import GithubLogin from '../components/GithubLogin';
 import { Button } from '@mui/material';
+import regeneratorRuntime from 'regenerator-runtime';
 
 function Dashboard() {
   //All the topics in key value pairs {_id: name}
-  const [ topics, setTopics ] = useState({});
+  const [topics, setTopics] = useState({});
   //All the cards for a topic in an array of objects [{card}, {card}]
-  const [ cards, setCards ] = useState([]);
-  const [ emojis, setEmojis ] = useState([]);
-  const [ bodies, setBodies ] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [emojis, setEmojis] = useState([]);
+  const [bodies, setBodies] = useState([]);
   //the current topic id that the user is looking at
-  const [ currentTopicId, setCurrentTopicId ] = useState();
+  const [currentTopicId, setCurrentTopicId] = useState();
 
-  const [ topicText, setTopicText ] = useState('');
-  const [ cardText, setCardText ] = useState('');
-  const [ emojiText, setEmojiText ] = useState(''); //might be dropdown later
-  const [ bodyText, setBodyText ] = useState('');
+  const [topicText, setTopicText] = useState('');
+  const [cardText, setCardText] = useState('');
+  const [emojiText, setEmojiText] = useState(''); //might be dropdown later
+  const [bodyText, setBodyText] = useState('');
 
   useEffect(() => {
     getTopics();
-  },[]);
+  }, []);
 
   const getTopics = () => {
     const url = 'http://localhost:3000/api/topic';
@@ -46,26 +47,39 @@ function Dashboard() {
       });
   };
 
-  const topicSubmit = (e) => {
+  const topicSubmit = async (e) => {
     // const topicTitle = e.target[0].value;
     e.preventDefault();
-    fetch('http://localhost:3000/api/topic', {
-      method: 'Post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        topic_name: topicText,
-      })
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-        const topicsCopy = {...topics};
-        topicsCopy[data._id] = data.topic_name;
-        setTopics(topicsCopy);
-        setTopicText('');
-      });
+    try {
+      const body = { topicText };
+      const response = await fetch('http://localhost:3000/api/topic', {
+        method: 'Post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }
+      )
+    } catch (err) {
+      console.log(err.message);
+    }
+    // fetch('http://localhost:3000/api/topic', {
+    //   method: 'Post',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     topic_name: topicText,
+    //   })
+    // })
+    //   .then((data) => data.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     const topicsCopy = { ...topics };
+    //     topicsCopy[data._id] = data.topic_name;
+    //     setTopics(topicsCopy);
+    //     setTopicText('');
+    //   });
   };
 
   const deleteTopic = (topic_id) => {
@@ -77,7 +91,7 @@ function Dashboard() {
     })
       .then(data => {
         console.log(data);
-        const topicsCopy = {...topics};
+        const topicsCopy = { ...topics };
         delete topicsCopy[topic_id];
         setTopics(topicsCopy);
       });
@@ -92,7 +106,7 @@ function Dashboard() {
       },
       body: JSON.stringify({
         topic_id: currentTopicId,
-        title: cardText, 
+        title: cardText,
         emoji: emojiText,
         text: bodyText,
       })
@@ -106,8 +120,8 @@ function Dashboard() {
         setBodyText('');
       });
   };
-  
-  
+
+
   const deleteCard = (card_id) => {
     fetch(`http://localhost:3000/api/subtopic/${card_id}`, {
       method: 'DELETE',
@@ -120,7 +134,7 @@ function Dashboard() {
         console.log(data);
         const cardsCopy = [...cards];
         let index;
-        cardsCopy.forEach((cur, i) =>{
+        cardsCopy.forEach((cur, i) => {
           if (cur._id === card_id) index = i;
         });
         cardsCopy.splice(index, 1);
@@ -136,7 +150,7 @@ function Dashboard() {
       },
       body: JSON.stringify({
         _id: card_id,
-        title: cardText, 
+        title: cardText,
         emoji: emojiText,
         text: bodyText,
       })
@@ -146,7 +160,7 @@ function Dashboard() {
         console.log(data);
         const cardsCopy = [...cards];
         let index;
-        cardsCopy.forEach((cur, i) =>{
+        cardsCopy.forEach((cur, i) => {
           if (cur._id === card_id) index = i;
         });
         cardsCopy[index] = data;
@@ -187,7 +201,7 @@ function Dashboard() {
     e.preventDefault();
     setEmojis([...emojis, emojiText]);
     setEmojiText('');
-  }; 
+  };
 
   const bodySubmit = (e) => {
     e.preventDefault();
@@ -221,38 +235,39 @@ function Dashboard() {
           : <Button variant="outlined" href='/logout'>Log out</Button>} */}
       </header>
       <div className='containers'>
-        {/* {typeof topics === 'object' && */}
-        <Nav
-          getCards={getCards}
-          topics={topics}
-          topicSubmit={topicSubmit}
-          topicTextEntry={topicTextEntry}
-          topicText={topicText} 
-          deleteTopic={deleteTopic}
-        />
-        {/* } */}
-        {/* {currentTopicId && typeof topics === 'object' && */}
-        <CardContainer 
-          bodyText={bodyText} 
-          emojis={emojis} 
-          emojiText={emojiText} 
-          bodies={bodies} 
-          cards={cards} 
-          cardSubmit={cardSubmit} 
-          cardTextEntry={cardTextEntry} 
-          cardText={cardText}
-          bodyTextEntry={bodyTextEntry}
-          emojiTextEntry={emojiTextEntry}
-          addCard={addCard}
-          deleteCard={deleteCard}
-          setBodyText={setBodyText}
-          setEmojiText={setEmojiText}
-          setCardText={setCardText}
-          updateCard={updateCard}
-          currentTopicName={topics[currentTopicId]}
-        /> 
-        {/* }   */}
-      </div>      
+        {typeof topics === 'object' &&
+          <Nav
+            getCards={getCards}
+            topics={topics}
+            topicSubmit={topicSubmit}
+            topicTextEntry={topicTextEntry}
+            topicText={topicText}
+            deleteTopic={deleteTopic}
+          />
+        }
+        {currentTopicId && typeof topics === 'object' &&
+
+          <CardContainer
+            bodyText={bodyText}
+            emojis={emojis}
+            emojiText={emojiText}
+            bodies={bodies}
+            cards={cards}
+            cardSubmit={cardSubmit}
+            cardTextEntry={cardTextEntry}
+            cardText={cardText}
+            bodyTextEntry={bodyTextEntry}
+            emojiTextEntry={emojiTextEntry}
+            addCard={addCard}
+            deleteCard={deleteCard}
+            setBodyText={setBodyText}
+            setEmojiText={setEmojiText}
+            setCardText={setCardText}
+            updateCard={updateCard}
+            currentTopicName={topics[currentTopicId]}
+          />
+        }
+      </div>
     </div>
   );
 }

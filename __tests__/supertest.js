@@ -1,70 +1,131 @@
 const request = require('supertest');
+const app = require('express')();
+import regeneratorRuntime from 'regenerator-runtime';
 
 const server = 'http://localhost:3000';
 
-/**
- * Read the docs! https://www.npmjs.com/package/supertest
- */
+const fakeData = [{
+  "id" : 2,
+  "name": "algo"
+}]
+
+
 describe('Route integration', () => {
-  describe('/', () => {
+
+  describe('test / endpoint', () => {
+
     describe('GET', () => {
-      // Note that we return the evaluation of `request` here! It evaluates to
-      // a promise, so Jest knows not to say this test passes until that
-      // promise resolves. See https://jestjs.io/docs/en/asynchronous
-      it('responds with 200 status and text/html content type', () => request(server)
-        .get('/')
-        .expect('Content-Type', /text\/html/)
-        .expect(200));
-    });
+      
+      it('should return 200 status and test/html', () => {
+        return request(server)
+          .get('/')
+          .expect('Content-Type', /text\/html/)
+          .expect(200);
+      })
+    })
+  })
 
-  });
+  describe('test api/topic endpoint', () => {
 
-  describe('/github', () => {
-    describe('/auth', () => {
+    describe('GET', () => {
 
-      it('GET: responds with a redirect to github sign in', () => request(server)
-        .get('/github/auth')
-        .expect('Location', 'https://github.com/login/oauth/authorize?scope=user,repo&redirect_uri=http://localhost:3000/github/callback&client_id=27337f49cf34f7d2d21b')
-        .expect(302));
-    });
-  });
-
-  describe('/api', () => {
-    describe('/topic', () => {
-      describe('GET', () => {
-        it('responds with json', () => {
-          return request(server)
-          .get('/api/topic')
-          .set('Cookie', ['ssid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFyaXNob2hhbSIsImlhdCI6MTY0NTM3OTIzNn0.B4yB2wVJL7quFTHATAUPcOD3Gpb_t5hn-R-XvGnk6YY'])
+      it('should return a 200 status code', () => {
+        return request(server)
+          .get('/api/topic/')
           .expect('Content-Type', /application\/json/)
-          .expect(200)
-        });
-        
-        it('responds with an array of objects', () => {
-          return request(server)
-            .get('/api/topic')
-            .set('Cookie', ['ssid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFyaXNob2hhbSIsImlhdCI6MTY0NTM3OTIzNn0.B4yB2wVJL7quFTHATAUPcOD3Gpb_t5hn-R-XvGnk6YY'])
-            .then((response) => {
-              expect(Array.isArray(response.body)).toBe(true);
-              expect(typeof request.body[0]).toBe('object');
-            })
+          .expect(200);
+      })
+
+      it('response body is json', () => {
+        const response = fakeData;
+        return request(server).get('/api/topic').expect(response)
+      })
+    })
+
+    describe('PUT', () => {
+      it('responds with 200 status and application/json content type', () => {
+        const topic = [
+          { name: "algo"}
+        ]
+        return request(server)
+        .put('/api/topic')
+        .send(topic)
+        .expect("Content-Type", /application\/json/)
+        .expect(200)
+      });
+
+      it('responds with the updated topic', () => {
+        const newTopic = [
+          { name: "react"}
+        ]
+        return request(server)
+        .put('/api/topic')
+        .send(newTopic)
+        .then((response) => {
+          expect(response.body).toEqual(newTopic)
         })
       });
 
-      describe('POST', () => {
-        it('Creating a new topic responds with an id number', () => {
-          const body = {name: 'topic_test'}
-          return request(server)
-            .put('/markets')
-            .set('Cookie', ['ssid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFyaXNob2hhbSIsImlhdCI6MTY0NTM3OTIzNn0.B4yB2wVJL7quFTHATAUPcOD3Gpb_t5hn-R-XvGnk6YY'])
-            .send(body)
-            .then(response => {
-              expect(typeof response.body).toEqual('number');
-            });
-        })
-      })
+      it('responds to invalid request with 400 status and error message in body', () => {
+        return request(server)
+        .put('/api/topic')
+        .send([{name: 5}])
+        .expect(400)
+        
+      });
     });
+  })
 
-  });
+  describe('test api/subtopic/:topic_id endpoint', () => {
 
-});
+    describe('GET', () => {
+
+      it('should return a 200 status code', () => {
+        return request(server)
+          .get('/api/subtopic/:topic_id')
+          .expect('Content-Type', /application\/json/)
+          .expect(200);
+      })
+
+      it('response body is json', () => {
+        const response = fakeData;
+        return request(server).get('/api/subtopic/:topic_id').expect(response)
+      })
+    })
+
+    describe('PUT', () => {
+      it('responds with 200 status and application/json content type', () => {
+        const topic = [
+          { name: "algo"}
+        ]
+        return request(server)
+        .put('/api/subtopic')
+        .send(topic)
+        .expect("Content-Type", /application\/json/)
+        .expect(200)
+      });
+
+      it('responds with the updated topic', () => {
+        const newTopic = [
+          { name: "react"}
+        ]
+        return request(server)
+        .put('/api/subtopic')
+        .send(newTopic)
+        .then((response) => {
+          expect(response.body).toEqual(newTopic)
+        })
+      });
+
+      it('responds to invalid request with 400 status and error message in body', () => {
+        return request(server)
+        .put('/api/subtopic')
+        .send([{name: 5}])
+        .expect(400)
+        
+      });
+    });
+  })
+
+  
+})

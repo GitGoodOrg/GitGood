@@ -6,10 +6,11 @@ subtopicController.getSubtopics = (req, res, next) => {
 
   const {topic_id} = req.params;
 
-  const sqlQuery = 'SELECT * FROM subtopics WHERE topic_id=$1';
+  const sqlQuery = 'SELECT * FROM cards ';
   
-  db.query(sqlQuery, [topic_id])
+  db.query(sqlQuery)
     .then(payload => {
+      console.log("this is the payload",payload.rows)
       res.locals.subtopics = payload.rows;
       next();
     }).catch(err => {
