@@ -17,9 +17,11 @@ topicController.getTopics = (req, res, next) => {
     });
 };
 
+
 topicController.postTopic = async (req, res, next) => {
 
   const { name } = req.body;
+
 
 
   const sqlQuery = 'INSERT INTO categories (name) VALUES ($1) RETURNING *';
@@ -47,7 +49,9 @@ topicController.postTopic = async (req, res, next) => {
 };
 
 topicController.deleteTopic = (req, res, next) => {
+
   const { id } = req.params;
+
 
   const sqlQuery = 'DELETE FROM topics WHERE _id=$1 RETURNING *';
 
