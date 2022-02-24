@@ -6,7 +6,7 @@ subtopicController.getSubtopics = (req, res, next) => {
 
   const {topic_id} = req.params;
 
-  const sqlQuery = 'SELECT * FROM cards ';
+  const sqlQuery = 'SELECT question,name FROM cards INNER JOIN users ON cards.creator = users._id ';
   
   db.query(sqlQuery)
     .then(payload => {

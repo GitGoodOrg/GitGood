@@ -18,10 +18,7 @@ topicController.getTopics = (req, res, next) => {
 };
 
 topicController.postTopic = (req, res, next) => {
-  
   const {category} = req.body;
-
-
   const sqlQuery = 'INSERT INTO categories (name) VALUES ($1) RETURNING *';
 
   db.query(sqlQuery,[category])
@@ -38,7 +35,6 @@ topicController.postTopic = (req, res, next) => {
 
 topicController.deleteTopic = (req, res, next) => {
   const {id} = req.params;
-
   const sqlQuery = 'DELETE FROM topics WHERE _id=$1 RETURNING *';
 
   db.query(sqlQuery,[id])
