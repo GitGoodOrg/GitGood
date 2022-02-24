@@ -18,7 +18,7 @@ router.get('/topic',
 
 //creates a new topic
 router.post('/topic/',
-  //sessionController.isLoggedIn,
+  // sessionController.isLoggedIn,
   topicController.postTopic,
   (req, res) => res.status(200).json(res.locals.topic)
 );
