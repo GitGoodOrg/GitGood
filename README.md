@@ -1,6 +1,6 @@
 <!-- GitGood -->
 <div id='top' align='center'>
-<img src='https://github.com/GitGoodOrg/GitGood/blob/dev/client/assets/GitGoodLogo.png' width='500'>
+<img src='client/assets/GitGoodLogo.png' width='500'>
 </div>
 
 # GitGood
