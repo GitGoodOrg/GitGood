@@ -5,7 +5,7 @@
 
 # GitGood
 
-An open source study tool to create topic categories and save useful resources as flashcards.
+An open source software engineering study tool that allows users to create topic categories and save useful resources as flashcards.
 
 ## Want to Contribute?
 
