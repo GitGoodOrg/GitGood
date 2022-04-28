@@ -30,3 +30,4 @@ An open source study tool to create topic categories and save useful resources a
 - Webpack
 
 ## Screenshots
+![Screenshot](client/assets/GitGoodDash.png)
