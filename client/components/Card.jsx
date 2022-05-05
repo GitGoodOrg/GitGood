@@ -8,8 +8,8 @@ function Card(props) {
     props.setCardText(props.cards.title);
     props.setBodyText(props.cards.text);
     props.setCurrentCardId(props.cards._id);
-  }  
-    
+  }
+
   return(
     <div className='Card'>
       <h3 onClick={handleClick} style={{cursor : 'pointer'}}>{ props.cards.title }</h3>
