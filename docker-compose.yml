@@ -1,0 +1,13 @@
+version: '3'
+services:
+  bash:
+    image: gitgood-dev
+    container_name: "gitgood-dev"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    command: docker-compose bash
+volumes:
+  node_modules:
