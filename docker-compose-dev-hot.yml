@@ -1,0 +1,14 @@
+version: '3'
+services:
+  dev:
+    image: gitgood-dev
+    container_name: "gitgood-dev-hot"
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+volumes:
+  node_modules:

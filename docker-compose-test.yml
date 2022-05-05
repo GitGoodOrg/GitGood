@@ -1,0 +1,13 @@
+version: '3'
+services:
+  test:
+    image: gitgood-dev
+    container_name: "gitgood-test"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run test
+volumes:
+  node_modules:
